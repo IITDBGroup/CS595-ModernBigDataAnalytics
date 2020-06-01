@@ -78,13 +78,6 @@ defaults:
       layout: "notebook"
   - scope:
       path: ""
-      type: "labs"
-    values:
-      layout: "lab"
-      toc: false
-      classes: wide
-  - scope:
-      path: ""
       type: "lectures"
     values:
       layout: "reveal_slide"
@@ -121,6 +114,7 @@ diagrams:
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
 exclude:
+  - .dir-locals.el
   - Gemfile
   - Gemfile.lock
   - node_modules

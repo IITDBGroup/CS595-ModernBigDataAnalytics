@@ -12,7 +12,7 @@
 	{% include class_profile.html %}
 
   {% assign tas = site.data.tas %}
-	{% if tas <> emtpy %}
+	{% if tas and tas <> emtpy %}
 <div itemscope itemtype="http://schema.org/Person">
 	  <h3>TAs</h3>
 		  {% for ta in tas %}
@@ -20,7 +20,7 @@
 		  {% include person_profile.html %}
 		  {% endfor %}
 </div>
-  {% endif %}
+    {% endif %}
 
   {% if page.sidebar %}
     {% for s in page.sidebar %}

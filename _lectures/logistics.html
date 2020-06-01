@@ -5,11 +5,11 @@ title: Logistics
 
 <section data-markdown>
 	<textarea data-template>
-		# CS595 - {{ page.title }}
+		# {{ site.data.course.title }} - {{ page.title }}
 
 		**Lecturer**: [Boris Glavic]({{ site.data.instructor.home }})
 
-		**Semester**: Spring 2019
+		**Semester**: {{ site.data.course.semester }} {{ site.data.course.year }}
 
 	</textarea>
 </section>
@@ -18,14 +18,11 @@ title: Logistics
 	<textarea data-template>
 		## Class Structure
 
-		* **Lectures**:
+		* **Lectures and Presentations**:
 		  * {{ site.data.course.when }}
 		  * {{ site.data.course.where }}
-		* **Labs**:
-		  * {{ site.data.course.lab.when }}
-		  * {{ site.data.course.lab.where }}
-		* **Project**: At the end of the semester there will be a programming [project]({{ site.baseurl }}/project.html)
-		* **Exams**: There will be a midterm and a final exam
+		* **Project**: Programming [project]({{ site.baseurl }}/project.html)
+		* **Literature review**: You will read several research papers and each student will present on paper: [papers]({{ site.baseurl }}/review.html)
 	</textarea>
 </section>
 
@@ -35,18 +32,6 @@ title: Logistics
 
 	* [syllabus]({{ site.baseurl }}/{{ site.data.course.syllabus }})
   </textarea>
-</section>
-
-
-<section data-markdown>
-	<textarea data-template>
-		## Labs
-
-		* There will be 9 [labs]({{ site.baseurl }}/labs.html)
-		* You will work on the lab assignments during the labs and at home
-		* Labs assignments are always due before the lab
-		* All code has to be submitted using the git version control system. We will create a repository for every student.
-	</textarea>
 </section>
 
 <section data-markdown>
@@ -96,10 +81,10 @@ title: Logistics
 		  * **Email:** [{{ site.data.instructor.email  }}](mailto:{{ site.data.instructor.email  }})
 		  * **Office:** {{ site.data.instructor.location }}
 		  * **Office hours:** {{ site.data.instructor.officehours }}
-		* **TAs:**
-		{% for ta in site.data.tas %}
-		  * **{{ ta.name }}**, [{{ ta.email }}](mailto:{{ ta.email  }})
-		{% endfor %}
+		<!-- * **TAs:** -->
+		<!-- {% for ta in site.data.tas %} -->
+		<!--   * **{{ ta.name }}**, [{{ ta.email }}](mailto:{{ ta.email  }}) -->
+		<!-- {% endfor %} -->
 
 	</textarea>
 </section>
@@ -109,7 +94,7 @@ title: Logistics
 	<textarea data-template>
 		## Attendance
 
-		* Since this is a 100-level course, I have to take attendance
+		* Since this is a seminar course I will require attendance
 		* Low attendance will result in a grade reduction
 	</textarea>
 </section>
@@ -138,7 +123,7 @@ title: Logistics
 	<textarea data-template>
 	  ## Piazza
 	  * We will use Piazza for Q&A
-	  * Please refrain from emailing me questions, but submit them through [Piazza]({{ site.data.course.piazza }}) instead.
+	  * Please refrain from emailing me questions, submit them through [Piazza]({{ site.data.course.piazza }}) instead.
 	  * [{{ site.data.course.piazza }}]({{ site.data.course.piazza }})
 	</textarea>
 </section>

@@ -12,8 +12,10 @@ piazza: "https://piazza.com/iit/summer2020/cs595/home"
 workload:
   - name: "Project"
     percentage: 50
+    link: "project.html"
   - name: "Paper Review"
     percentage: 50
+    link: "review.html"
 grading:
   - letter: "A"
     plus: 90
