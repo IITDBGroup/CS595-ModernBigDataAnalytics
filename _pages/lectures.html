@@ -1,0 +1,69 @@
+---
+title: Lectures
+permalink: lectures.html
+classes: wide
+toc: false
+---
+
+<p>This is an overview of the content covered in the lectures:</p>
+
+{% assign numLectures = site.data.lectures | size | minus: 1 %}
+
+<table>
+<tr>
+    <th>Date</th>
+	<th>Topic</th>
+	<th>Description</th>
+	<th>Reading</th>
+</tr>
+{% assign datepos = 0 %}
+{% for i in (0..numLectures) %}
+{% assign l = site.data.lectures[i] %}
+{% assign numdates = l.numdates | default: 1 %}
+  <tr>
+	<td>
+	  {% for j in (1..numdates) %}
+	  {% assign lecdate = site.data.dates[datepos] %}
+	  {% assign datepos = datepos | plus: 1 %}
+	  {{ lecdate }}
+	  {% endfor %}
+	</td>
+	<td><b>{{ l.title }}</b></td>
+	<td>{{ l.description }}
+	  {% if l.slides %}
+	  <br/>
+	  <b>Slides:</b>
+	  <ul>
+	  {% for s in l.slides %}
+	  {% assign slide = site.lectures | where: "shortname", s | first %}
+	  <li><a href="{{ site.baseurl }}/{{ slide.url }}">{{ slide.title }}</a> <a href="{{ site.baseurl }}/{{ slide.url }}?print-pdf"><i class="far fa-file-pdf"></i></a> </li>
+	  {% endfor %}
+	  </ul>
+	  {% endif %}
+	</td>
+	<td>
+	  {% if l.reading and l.reading <> empty %}
+		<p>
+		  <b>Reading:</b>
+			  <ul>
+				{% for p in l.reading %}
+                {% assign paper = site.papers | where: "ref", s | first %}
+				<li><a href="{{ site.baseurl }}/assets/papers/{{ p }}.pdf">{{p}}</a> - <b>{{ p.title }}</b>,<it>{{ p.authors }}</it>, {{ p.venue }}, {{ p.year }}</li>
+				{% endfor %}
+			  </ul>
+		</p>
+	  {% endif %}
+	  {% if l.notebooks and l.notebooks <> empty %}
+		<p>
+		  <b>Notebooks:</b>
+			  <ul>
+				{% for n in l.notebooks %}
+				<li><a href="{{ site.baseurl }}/notebooks/{{ n }}.ipynb.html">{{n}}</a></li>
+				{% endfor %}
+			  </ul>
+		</p>
+	  {% endif %}
+	</td>
+</tr>
+{% endfor %}
+</table>

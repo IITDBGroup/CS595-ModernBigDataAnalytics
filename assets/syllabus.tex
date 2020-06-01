@@ -1,0 +1,193 @@
+\documentclass[12pt]{article}
+\textwidth=7in
+\textheight=9.5in
+\topmargin=-1in
+\headheight=0in
+\headsep=.5in
+\hoffset  -.85in
+
+\usepackage{color}
+\usepackage{hyperref}
+\pagestyle{empty}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\begin{document}
+
+\begin{center}
+{\bf \Large CS 595-xx - Topics in Modern Big Data Analytics}\\
+\end{center}
+
+\setlength{\unitlength}{1in}
+
+\begin{picture}(6,.1)
+\put(0,0) {\line(1,0){6.25}}
+\end{picture}
+
+\renewcommand{\arraystretch}{2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vskip.25in
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace*{.15in}
+
+{\large \noindent \textbf{Course Description:} }
+
+Big data technologies, in particular, scalable distributed platforms for storage
+and analytics enable processing of massive datasets for analytics, machine
+learning, and other use cases.  This course provides a comprehensive overview of
+algorithms, systems, and techniques for Big Data processing. In a semester-long
+project, students will extend existing big data platforms.  Additionally, in the
+seminar component of this course we will discuss cutting edge research and
+industrial developments in the field.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vskip.25in
+{\large \noindent\textbf{Course Material:}  }
+
+\noindent The following text book will be helpful for following the course and studying the presented material.\\
+
+{\footnotesize
+  \noindent White, \textbf{Hadoop: The Definitive Guide}, 4th Edition, O'Reilly Media, 2015\\
+}
+
+\noindent One of the following standard text books on databases in general may be helpful. However, this is not required reading material.\\
+
+{\footnotesize
+\noindent  Elmasri and Navathe. \textbf{Fundamentals of Database Systems}, 6th Edition , Addison-Wesley , 2003 \\
+\noindent  Ramakrishnan and Gehrke. \textbf{Database Management Systems},  3nd Edition ,  McGraw-Hill , 2002 \\
+\noindent  Silberschatz, Korth, and Sudarshan. \textbf{Database System Concepts}, 6th Edition , McGraw Hill , 2010\\
+\noindent  Garcia-Molina, Ullman,  and  Widom. \textbf{Database Systems: The Complete Book}, 2nd Edition, Prentice Hall, 2008}\\[3pt]
+
+\noindent Slides for the course will be made available on the course webpage.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vskip.25in
+{\large \noindent\textbf{Prerequisites:}}\\
+
+No formal prerequisites, but some background in databases and/or distribute programming is useful.
+% \begin{itemize}
+% \item \textit{Courses:} CS425
+% \end{itemize}
+
+\pagebreak
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vskip.25in
+{\large \noindent \textbf{Course Details:} }
+
+\noindent The following topics will be covered in the course:
+
+\begin{itemize}
+\item \textbf{Foundations of Scalable and Distributed Storage and Computation}
+  \begin{itemize}
+  \item Fault tolerance
+  \item Eventual consistency and consensus protocols
+  \item Load balancing
+  \item Scalable algorithm design
+  \item Data placement techniques
+  \end{itemize}
+\item \textbf{Distributed Storage}
+  \begin{itemize}
+  \item Distributed file systems and replication
+  \item Key-value and distributed document Stores
+  \item Structured distributed storage solutions
+  \end{itemize}
+\item \textbf{Distributed Batch Processing}
+  \begin{itemize}
+  \item Specifying computations as dataflows
+  \item DISC systems
+  \item Iterative and incremental dataflows
+  \end{itemize}
+\item \textbf{High-level Dataflow Languages}
+\begin{itemize}
+\item Scripting and query languages
+\item Graph processing
+\end{itemize}
+\item \textbf{Streaming Analytics}
+  \begin{itemize}
+  \item Distributed stream processing
+  \item Publish-subscribe systems
+  \end{itemize}
+\item \textbf{Distributed Transaction Processing}
+  \begin{itemize}
+  \item The 2PC protocol
+  \item Transaction processing over partitioned storage
+  \end{itemize}
+\end{itemize}
+
+\pagebreak
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vskip.25in
+{\large \noindent \textbf{Workload} }
+
+\noindent The workload will consist of
+\begin{enumerate}
+\item A semester long project related to extending an existing Big Data platform
+\item Review a research paper related to state-of-the-art techniques in Big Data processing and present it in the course
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vskip.25in
+\noindent {\large \textbf{Course Objectives}:}
+
+\noindent After attending the course students should:
+
+\begin{itemize}
+\item Understand the challenges of processing queries and other data-intensive computations in a distributed fashion
+\item Be familiar with scalable storage and compute solutions; understand their benefits and limitations
+\item Learn about different types of scalable systems including \ldots
+  \begin{itemize}
+  \item \textit{Distributed file systems}
+  \item Scalable storage techniques such as \textit{key-value stores} and distributed structured storage solutions such as \textit{HBase}
+  \item DISC platforms such as MapReduce, Spark, and Flink
+  \item Specialized systems for, e.g., \textit{graph data} such as Giraph and support for graph data in general purpose DISC platforms
+  \item \textit{Publish-subscribe systems} such as Kafka
+  \item Distributed transaction processing systems
+  \end{itemize}
+\item Understand what \textit{fault tolerance} is and how it can be achieved through replication, logical logging (as in Spark), and through \textit{consensus protocols} like Paxos and Raft
+\item Understand how \textit{load-balancing} is achieved in DISC systems
+\item Understand \textit{data placement techniques} including horizontal and vertical partitioning and how they utilized by DISC frameworks
+\item Learn about the distributed algorithms employed by DISC platforms for implementing the higher-order functions exposed to the user
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vskip.25in
+\noindent {\large \textbf{Grading Policy}:}
+
+The grading scheme is as follows:
+
+\begin{itemize}
+\item A: 80\% or higher
+\item B: 50\% or higher
+\item C: 35\% or higher
+\item E: below 35\%
+\end{itemize}
+
+The weighting of the individual components are:
+
+\begin{itemize}
+\item Programming Project: 50\%
+\item Literature Review: 50\%
+\end{itemize}
+
+\noindent {\large \textbf{Illinois Tech’s Sexual Harassment and Discrimination Information}:}
+
+\begin{itemize}
+\item Sexual harassment, sexual misconduct, and gender discrimination by any
+  member of the Illinois Tech community is prohibited. This includes harassment
+  among students, staff, or faculty. Sexual harassment by a faculty member or
+  teaching assistant of a student over whom they have authority or by a
+  supervisor of a member of the faculty or staff is particularly serious. Such
+  conduct may easily create an intimidating, hostile, or offensive environment.
+
+\item  Illinois Tech encourages anyone experiencing sexual harassment or sexual misconduct to speak with the Title IX Office for information on the resolution process and support options.
+
+\item  You can file a complaint electronically at \url{http://iit.edu/incidentreport}, which may be completed anonymously. You may also file a complaint in-person by contacting the Title IX Coordinator, Virginia Foster at \url{312-567-5725} / \url{mailto:foster@iit.edu} or the Deputy Title IX Coordinator \url{312-567-5726} / \url{mailto:eespeland@iit.edu}.
+
+\item If you are not ready to file a formal complaint but wish to learn about your rights and options, you may contact Illinois Tech’s Confidential Advisor service at \url{773-907-1062}. You can also contact a licensed practitioner in Illinois Tech’s Student Health and Wellness Center at \url{312-567-7550}
+
+\item For a comprehensive list of resources regarding counseling services, medical assistance, legal assistance and visa and immigration services, you can visit the Title IX Office’s website at \url{https://web.iit.edu/hea/resources}
+\end{itemize}
+\end{document}

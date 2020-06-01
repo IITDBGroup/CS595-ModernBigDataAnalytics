@@ -1,0 +1,16 @@
+# main links
+main:
+  - title: "Home"
+    url: /
+  # - title: "Getting Started"
+  #   url: /bootstrap.html
+  - title: "Project"
+    url: /project.html
+  - title: "Literature Review"
+    url: /review.html
+  - title: "Lectures"
+    url: /lectures.html
+  - title: "Notebooks"
+    url: /notebooks.html
+  - title: "Piazza"
+    url: "https://piazza.com/iit/summer2020/cs595"

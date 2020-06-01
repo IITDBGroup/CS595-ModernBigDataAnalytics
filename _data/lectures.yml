@@ -1,0 +1,31 @@
+- title: "Logistics + Foundataions of Scalable and Distributed Storage and Comptuation"
+  notebooks: [  ]
+  reading: []
+  slides: [ logistics, foundations ]
+  description: "We will discuss logistics of the course, projects, and paper assignments. Furthermore, we will discuss important foundations of distributed analytics including fault tolerance, consistency and consensus, load-balancing, sacalable algorithm desin and data placement."
+  numdates: 1
+
+- title: "Distributed Storage"
+  description: "We will learn about distributed approaches for handling storage unstructured and data structed data."
+  slides: [ storage ]
+  numdates: 1
+
+- title: "Distributed Batch Processing"
+  description: "We will learn about DISC (data-intensive scalable computing) systems which expose to users high-level languages for processing large datasets in a distributed fashion."
+  slides: [ disc ]
+  numdates: 3
+
+- title: "High-level Dataflow Languages"
+  description: "We learn about the high-level dataflow languages used in big data processing and how these languages are implemented by DISC systems."
+  slides: [ dflang ]
+  numdates: 2
+
+- title: "Streaming Analytics"
+  slides: [ streams ]
+  description: "We will learn about how to comment our code and automatically create documentation from these comments."
+  numdates: 1
+
+- title: "Distributed Transaction Processing"
+  slides: [ oltp ]
+  description: "We will learn about scalable distributed approaches for transaction processing including so called NewSQL systems."
+  numdates: 1
