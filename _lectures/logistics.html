@@ -22,7 +22,7 @@ title: Logistics
 		  * {{ site.data.course.when }}
 		  * {{ site.data.course.where }}
 		* **Project**: Programming [project]({{ site.baseurl }}/project.html)
-		* **Literature review**: You will read several research papers and each student will present on paper: [papers]({{ site.baseurl }}/review.html)
+		* **Literature review**: You will read/present several research papers: [papers]({{ site.baseurl }}/review.html)
 	</textarea>
 </section>
 
@@ -43,20 +43,40 @@ title: Logistics
 	</textarea>
 </section>
 
+<section data-markdown>
+	<textarea data-template>
+		## Literature review
+
+		* Each section of the lecture requires you to read one or more papers
+		* Each student will present one or two of these research papers in a 30 min presentation during the lectures
+	</textarea>
+</section>
+
+
+<section data-markdown>
+	<textarea data-template>
+		## Project
+
+		* Projects will be done by students individually
+		* You will extend or build-upon an existing big data system
+		* You have the freedom to select a topic
+		  * For suggestions see [here]({{ site.baseurl }}/project.html)
+		* Projects will be submitted through git
+	</textarea>
+</section>
 
 <section data-markdown>
 	<textarea data-template>
 		## Course content
 
-		* We will learn about object-oriented programming using Java as the language of our choice
+		* We will learn about modern distributed analytics systems for processing big data.
 		* This entails learning about ...
-		  * The Java language
-		  * The Object-oriented Programming Paradigm
-		  * Debugging, Logging, and Testing
-		  * Data Structures
-		  * Basic Algorithms
-		  * Programming Techniques
-		  * Tool ecosystems
+		  * Foundations of Scalable and Distributed Storage and Computation
+		  * Distributed Storage
+		  * Distributed Batch Processing
+		  * High-level Dataflow Languages
+		  * Streaming Analytics
+		  * Distributed Transaction Processing
 	</textarea>
 </section>
 
@@ -65,8 +85,8 @@ title: Logistics
 	## Lectures
 
 		* For a list of lectures see [here]({{ site.baseurl }}/lectures.html)
-		* We will code during the lectures
-		* We will utilize [notebooks]({{ site.baseurl }}/notebooks.html) which are webpages documents containing:
+		* For each of the lectures there will be assigned reading material
+		* We will utilize [notebooks]({{ site.baseurl }}/notebooks.html) which are webdocument containing:
 		  * Code
 		  * Outputs
 		  * Information
@@ -81,6 +101,7 @@ title: Logistics
 		  * **Email:** [{{ site.data.instructor.email  }}](mailto:{{ site.data.instructor.email  }})
 		  * **Office:** {{ site.data.instructor.location }}
 		  * **Office hours:** {{ site.data.instructor.officehours }}
+		    * Office hours will be held through google hangouts!
 		<!-- * **TAs:** -->
 		<!-- {% for ta in site.data.tas %} -->
 		<!--   * **{{ ta.name }}**, [{{ ta.email }}](mailto:{{ ta.email  }}) -->

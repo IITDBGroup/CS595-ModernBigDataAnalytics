@@ -13,12 +13,12 @@
 - title: "Distributed Batch Processing"
   description: "We will learn about DISC (data-intensive scalable computing) systems which expose to users high-level languages for processing large datasets in a distributed fashion."
   slides: [ disc ]
-  numdates: 3
+  numdates: 1
 
 - title: "High-level Dataflow Languages"
   description: "We learn about the high-level dataflow languages used in big data processing and how these languages are implemented by DISC systems."
   slides: [ dflang ]
-  numdates: 2
+  numdates: 1
 
 - title: "Streaming Analytics"
   slides: [ streams ]

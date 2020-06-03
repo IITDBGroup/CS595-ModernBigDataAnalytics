@@ -13,6 +13,24 @@ This course teaches you about systems, algorithms, and the fundamental principle
 * **Project**: information about the project: [here]({{ site.baseurl }}/project.html)
 * **Literature review**: information about the literature review: [here]({{ site.baseurl }}/review.html)
 
+
+# Workload and Grading Scheme
+
+**Grading Policy:**
+
+{% for w in site.data.course.workload %}* {% if w.link %}[{{ w.name }}]({{ site.baseurl }}/{{ w.link }}){% else %}{{ w.name }}{% endif %}: *{{ w.percentage }}%*
+{% endfor %}
+
+**Grading scheme:**
+
+{% for g in site.data.course.grading %}* {% if g.plus %}{{ g.plus }}+{% else %}<{{ g.lessthan }}{% endif %} = {{ g.letter }}
+{% endfor %}
+
+
+# Syllabus
+
+<a href="{{ site.data.course.syllabus  }}"><i class="far fa-file-pdf"></i> Syllabus</a>
+
 # Textbook
 
 >*White*, **Hadoop: The Definitive Guide**, 4th Edition, O’Reilly Media, **ISBN-13**: 978-1491901632
@@ -31,20 +49,3 @@ Depending on your background, a standard database textbook may be useful:
 
 >*Garcia-Molina*, *Ullman*, and *Widom*. **Database Systems: The Complete Book**, 2nd Edition, Prentice Hall, 2008
 {: .notice--info}
-
-# Workload and Grading Scheme
-
-**Grading Policy:**
-
-{% for w in site.data.course.workload %}* {% if w.link %}[{{ w.name }}]({{ site.baseurl }}/{{ w.link }}){% else %}{{ w.name }}{% endif %}: *{{ w.percentage }}%*
-{% endfor %}
-
-**Grading scheme:**
-
-{% for g in site.data.course.grading %}* {% if g.plus %}{{ g.plus }}+{% else %}<{{ g.lessthan }}{% endif %} = {{ g.letter }}
-{% endfor %}
-
-
-# Syllabus
-
-<a href="{{ site.data.course.syllabus  }}"><i class="far fa-file-pdf"></i> Syllabus</a>
