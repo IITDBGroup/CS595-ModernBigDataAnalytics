@@ -1,0 +1,61 @@
+#+TITLE: CS595 Coursewebpage
+
+* Jekyll
+* Setting up a new semester
+**
+** dates in =./_data/dates.yml=
+#+name: create dates
+#+header: :engine postgres
+#+header: :dbhost 127.0.0.1
+#+header: :dbport 5438
+#+header: :dbuser lord_pretzel
+#+header: :dbpassword postgres
+#+header: :database postgres
+#+begin_src sql :results raw replace drawer
+WITH RECURSIVE dates AS (
+  (SELECT '2021-08-24'::date AS d, 1 AS h
+  UNION ALL
+   SELECT '2021-08-26'::date AS d, 2 AS h)
+  UNION
+  (SELECT (d + '1 week'::interval)::date, h+2
+     FROM dates
+    WHERE d + '1 week'::interval <= '2021-12-04'::date))
+SELECT '  - ' || d || '   #' || row_number() OVER (ORDER BY d ASC)::text AS line
+  FROM dates
+ WHERE d NOT IN ('2021-10-11', '2021-11-24', '2021-11-25', '2021-11-26', '2021-11-27', '2021-11-28')
+ ORDER BY d ASC
+#+end_src
+
+#+RESULTS: create dates
+:results:
+line
+  - 2021-08-24   #1
+  - 2021-08-26   #2
+  - 2021-08-31   #3
+  - 2021-09-02   #4
+  - 2021-09-07   #5
+  - 2021-09-09   #6
+  - 2021-09-14   #7
+  - 2021-09-16   #8
+  - 2021-09-21   #9
+  - 2021-09-23   #10
+  - 2021-09-28   #11
+  - 2021-09-30   #12
+  - 2021-10-05   #13
+  - 2021-10-07   #14
+  - 2021-10-12   #15
+  - 2021-10-14   #16
+  - 2021-10-19   #17
+  - 2021-10-21   #18
+  - 2021-10-26   #19
+  - 2021-10-28   #20
+  - 2021-11-02   #21
+  - 2021-11-04   #22
+  - 2021-11-09   #23
+  - 2021-11-11   #24
+  - 2021-11-16   #25
+  - 2021-11-18   #26
+  - 2021-11-23   #27
+  - 2021-11-30   #28
+  - 2021-12-02   #29
+:end:
