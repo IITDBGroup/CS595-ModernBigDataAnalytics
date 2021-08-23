@@ -29,6 +29,8 @@ This course teaches you about systems, algorithms, and the fundamental principle
 
 # Syllabus
 
+- [here]({{ site.baseurl }}/syllabus.html)
+
 <a href="{{ site.data.course.syllabus  }}"><i class="far fa-file-pdf"></i> Syllabus</a>
 
 # Textbook

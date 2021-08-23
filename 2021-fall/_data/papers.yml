@@ -1,0 +1,129 @@
+################################################################################
+# STORAGE
+- title: "LSM-Based Storage Techniques: a Survey"
+  authors: "Chen Luo, Michael J. Carey"
+  venue: "VLDB J."
+  year: "2020"
+  category: storage
+  required: true
+
+- title: "Optimal Bloom Filters and Adaptive Merging for LSM-Trees"
+  authors: "Niv Dayan, Manos Athanassoulis, Stratos Idreos"
+  venue: "ACM Trans. Database Syst."
+  year: "2018"
+  category: "storage"
+  required: false
+
+- title: "Bigtable: A Distributed Storage System for Structured Data"
+  authors: "Fay Chang, Jeffrey Dean, Sanjay Ghemawat, Wilson C. Hsieh, Deborah A. Wallach, Mike Burrows, Tushar Chandra, Andrew Fikes, Robert E. Gruber"
+  venue: "ACM Trans. Comput. Syst."
+  year: "2008"
+  category: "storage"
+  required: true
+
+- title: "Cassandra: a decentralized structured storage system"
+  authors: "Avinash Lakshman, Prashant Malik"
+  venue: "ACM SIGOPS Operating Systems Review"
+  year: "2010"
+  category: "storage"
+  required: false
+
+- title: "Dynamo: Amazon's highly available key-value store"
+  authors: "G. DeCandia, D. Hastorun, M. Jampani, G. Kakulapati, A. Lakshman, A. Pilchin, S. Sivasubramanian, P. Vosshall, W. Vogels"
+  venue: "ACM SIGOPS Operating Systems Review"
+  year: "2007"
+  category: "storage"
+  required: false
+
+- title: "The hadoop distributed file system"
+  authors: "Konstantin Shvachko, Hairong Kuang, Sanjay Radia, Robert Chansler"
+  venue: "2010 IEEE 26th symposium on mass storage systems and technologies (MSST)"
+  year: "2010"
+  category: "storage"
+  required: true
+
+- title: "The Google file system"
+  authors: "Sanjay Ghemawat, Howard Gobioff, Shun-Tak Leung"
+  venue: "SIGOPS Oper. Syst. Rev. (5), 29--43"
+  year: "2003"
+  category: "storage"
+  required: false
+
+
+################################################################################
+# DISC
+- title: "MapReduce: simplified data processing on large clusters"
+  authors: "Jeffrey Dean, Sanjay Ghemawat"
+  venue: "Proceedings of the 6th conference on Symposium on Opearting Systems Design & Implementation - Volume 6"
+  year: "2004"
+  category: "disc"
+  required: true
+
+- title: "Spark: cluster computing with working sets"
+  authors: "Matei Zaharia, Mosharaf Chowdhury, Michael J Franklin, Scott Shenker, Ion Stoica"
+  venue: "Proceedings of the 2nd USENIX conference on Hot topics in cloud computing"
+  year: "2010"
+  category: "disc"
+  required: true
+
+- title: "All roads lead to rome: optimistic recovery for distributed iterative data processing"
+  authors: "Sebastian Schelter, Stephan Ewen, Kostas Tzoumas, Volker Markl"
+  venue: "Proceedings of the 22nd ACM international conference on Conference on information & knowledge management"
+  year: "2013"
+  category: "disc"
+  required: false
+
+- title: "Incremental, Iterative Data Processing With Timely Dataflow"
+  authors: "Derek Gordon Murray, Frank McSherry, Michael Isard, Rebecca Isaacs, Paul Barham, Martin Abadi"
+  venue: "Commun. ACM"
+  year: "2016"
+  category: "disc"
+  required: false
+
+
+################################################################################
+# DF LANGUAGES
+
+- title: "Efficient Control Flow in Dataflow Systems: When Ease-of-Use Meets High Performance"
+  authors: "Gabor E. Gevay, Tilmann Rabl, Sebastian Bress, Lorand Madai-Tahy, Jorge-Arnulfo Quiane-Ruiz, Volker Markl"
+  venue: "37th {IEEE} International Conference on Data Engineering, {ICDE} 2021, Chania, Greece, April 19-22, 2021"
+  year: "2021"
+  category: "dataflow"
+  required: false
+
+- title: "Spark SQL: Relational data processing in Spark"
+  authors: "Michael Armbrust, Reynold S. Xin, Cheng Lian, Yin Huai, Davies Liu, Joseph K. Bradley, Xiangrui Meng, Tomer Kaftan, Michael J. Franklin, Ali Ghodsi, Matei Zaharia"
+  venue: "Proceedings of the ACM International Conference on Management of Data (SIGMO)"
+  year: "2015"
+  category: "dataflow"
+  required: true
+
+- title: "Representations and Optimizations for Embedded Parallel Dataflow Languages"
+  authors: "Alexander Alexandrov, Georgi Krastev, Volker Markl"
+  venue: "ACM} Trans. Database Syst."
+  year: "2019"
+  category: "disc"
+  required: false
+
+
+################################################################################
+# STREAMING ANALYTICS
+
+
+
+################################################################################
+# DISTRIBUTED TRANSACTION PROCESSING
+
+- title: "H-store: a high-performance, distributed main memory transaction processing system"
+  authors: "Robert Kallman, Hideaki Kimura, Jonathan Natkins, Andrew Pavlo, Alexander Rasin, Stanley Zdonik, Evan PC Jones, Samuel Madden, Michael Stonebraker, Yang Zhang, others"
+  venue: "Proceedings of the VLDB Endowment"
+  year: "2008"
+  category: "cc"
+  required: true
+
+- title: "Calvin: fast distributed transactions for partitioned database systems"
+  authors: "Alexander Thomson, Thaddeus Diamond, Shu-Chun Weng, Kun Ren, Philip Shao, Daniel J Abadi"
+  venue: "Proceedings of the 2012 ACM SIGMOD International Conference on Management of Data"
+  year: "2012"
+  category: "cc"
+  required: false

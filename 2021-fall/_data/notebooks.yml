@@ -1,0 +1,17 @@
+types:
+  - shortname: storage
+    longname: Distributed Unstructured and Structured Storage
+    description: "We will showcase basic usage of distributed storage solutions."
+  - shortname: disc
+    longname: DISC Systems
+    description: "We will work with DISC systems like Spark."
+  - shortname: newsql
+    longname: "NewSQL: Distributed Transactional Systems"
+    description: "We will work with distributed transaction processing systems."
+notebooks:
+  - description: "HDFS"
+    filename: hdfs
+    type: storage
+  - description: "Spark"
+    filename: disc
+    type: storage

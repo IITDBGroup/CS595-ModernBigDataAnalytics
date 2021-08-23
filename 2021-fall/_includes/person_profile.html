@@ -58,6 +58,10 @@
 	     <li><i class="fas fa-clock" aria-hidden="true"></i> {{ author.officehours }}</li>
 	  {% endif %}
 
+      {% if author.officehour_url %}
+          <li><a href="{{ author.officehour_url }}" rel="nofollow noopener noreferrer"><i class="{{ link.icon | default: 'fas fa-link' }}" aria-hidden="true"></i> {{ author.officehour_url }}</a></li>
+      {% endif %}
+
       {% if author.links %}
         {% for link in author.links %}
           {% if link.label and link.url %}

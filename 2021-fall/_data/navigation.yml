@@ -2,8 +2,6 @@
 main:
   - title: "Home"
     url: /
-  # - title: "Getting Started"
-  #   url: /bootstrap.html
   - title: "Project"
     url: /project.html
   - title: "Literature Review"
@@ -12,5 +10,7 @@ main:
     url: /lectures.html
   - title: "Notebooks"
     url: /notebooks.html
-  - title: "Piazza"
-    url: "https://piazza.com/iit/summer2020/cs595"
+  - title: "Syllabus"
+    url: /syllbus.html
+  - title: "Discord"
+    url: "https://discord.gg/UfcdqHRFKa"
