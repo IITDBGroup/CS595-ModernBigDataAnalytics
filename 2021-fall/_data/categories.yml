@@ -1,0 +1,10 @@
+- id: storage
+  name: "Distributed Storage & NoSQL Databases"
+- id: disc
+  name: "Distributed Batch Processing"
+- id: dataflow
+  name: "High-level Dataflow & Query Languages"
+- id: streams
+  name: "Distributed Stream Processing & Publish-Subscribe"
+- id: cc
+  name: "Distributed Transaction Processing, Consensus, and Consensus"
