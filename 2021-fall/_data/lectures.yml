@@ -1,13 +1,13 @@
 - title: "Logistics + Foundataions of Scalable and Distributed Storage and Comptuation"
   slides: [ logistics, foundations ]
   description: "We will discuss logistics of the course, projects, and paper assignments. Furthermore, we will discuss important foundations of distributed analytics including fault tolerance, consistency and consensus, load-balancing, sacalable algorithm desin and data placement."
-  numdates: 4
+  numdates: 1
 
 - title: "Distributed Storage & NoSQL Databases"
   description: "We will learn about distributed approaches for handling storage of unstructured and data structed data."
   category: storage
   slides: [ storage ]
-  numdates: 5
+  numdates: 6
 
 - title: "Distributed Batch Processing"
   description: "We will learn about DISC (data-intensive scalable computing) systems which automatically distribute the processing of complex tasks to a cluster of nodes."
@@ -25,10 +25,10 @@
   slides: [ oltp ]
   description: "We will learn about scalable distributed approaches for transaction processing and consistency including so called NewSQL systems."
   category: cc
-  numdates: 5
+  numdates: 6
 
 - title: "Distributed Stream Processing & Publish-Subscribe"
   slides: [ streams ]
   description: "We will learn about distributed systems for processing streams of data."
   category: streams
-  numdates: 3
+  numdates: 4
