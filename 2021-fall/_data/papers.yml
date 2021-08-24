@@ -7,19 +7,40 @@
   category: storage
   required: true
 
-- title: "Optimal Bloom Filters and Adaptive Merging for LSM-Trees"
-  authors: "Niv Dayan, Manos Athanassoulis, Stratos Idreos"
-  venue: "ACM Trans. Database Syst."
-  year: "2018"
-  category: "storage"
-  required: false
-
 - title: "Bigtable: A Distributed Storage System for Structured Data"
   authors: "Fay Chang, Jeffrey Dean, Sanjay Ghemawat, Wilson C. Hsieh, Deborah A. Wallach, Mike Burrows, Tushar Chandra, Andrew Fikes, Robert E. Gruber"
   venue: "ACM Trans. Comput. Syst."
   year: "2008"
   category: "storage"
   required: true
+
+- title: "The hadoop distributed file system"
+  authors: "Konstantin Shvachko, Hairong Kuang, Sanjay Radia, Robert Chansler"
+  venue: "2010 IEEE 26th symposium on mass storage systems and technologies (MSST)"
+  year: "2010"
+  category: "storage"
+  required: true
+
+- title: "Autopart: Automating schema design for large scientific databases using data partitioning"
+  authors: "S. Papadomanolakis, A. Ailamaki"
+  venue: ""
+  year: "2004"
+  category: "storage"
+  required: false
+
+- title: "Skipping-oriented partitioning for columnar layouts"
+  authors: "Liwen Sun, Michael J Franklin, Jiannan Wang, Eugene Wu"
+  venue: "Proceedings of the VLDB Endowment"
+  year: "2016"
+  category: "storage"
+  required: false
+
+- title: "Optimal Bloom Filters and Adaptive Merging for LSM-Trees"
+  authors: "Niv Dayan, Manos Athanassoulis, Stratos Idreos"
+  venue: "ACM Trans. Database Syst."
+  year: "2018"
+  category: "storage"
+  required: false
 
 - title: "Cassandra: a decentralized structured storage system"
   authors: "Avinash Lakshman, Prashant Malik"
@@ -35,13 +56,6 @@
   category: "storage"
   required: false
 
-- title: "The hadoop distributed file system"
-  authors: "Konstantin Shvachko, Hairong Kuang, Sanjay Radia, Robert Chansler"
-  venue: "2010 IEEE 26th symposium on mass storage systems and technologies (MSST)"
-  year: "2010"
-  category: "storage"
-  required: true
-
 - title: "The Google file system"
   authors: "Sanjay Ghemawat, Howard Gobioff, Shun-Tak Leung"
   venue: "SIGOPS Oper. Syst. Rev. (5), 29--43"
@@ -49,6 +63,12 @@
   category: "storage"
   required: false
 
+- title: "OctopusFS: A Distributed File System with Tiered Storage Management"
+  authors: "Elena Kakoulli, Herodotos Herodotou"
+  venue: "Proceedings of the 2017 ACM International Conference on Management of Data"
+  year: "2017"
+  category: "storage"
+  required: false
 
 ################################################################################
 # DISC
@@ -62,6 +82,13 @@
 - title: "Spark: cluster computing with working sets"
   authors: "Matei Zaharia, Mosharaf Chowdhury, Michael J Franklin, Scott Shenker, Ion Stoica"
   venue: "Proceedings of the 2nd USENIX conference on Hot topics in cloud computing"
+  year: "2010"
+  category: "disc"
+  required: true
+
+- title: "A comparison of join algorithms for log processing in MapReduce"
+  authors: "Spyros Blanas, Jignesh M. Patel, Vuk Ercegovac, Jun Rao, Eugene J. Shekita, Yuanyuan Tian"
+  venue: "Proceedings of the ACM SIGMOD International Conference on Management of Data, SIGMOD 2010, Indianapolis, Indiana, USA, June 6-10, 2010, pp. 975--986"
   year: "2010"
   category: "disc"
   required: true
@@ -80,39 +107,173 @@
   category: "disc"
   required: false
 
-
-################################################################################
-# DF LANGUAGES
-
-- title: "Efficient Control Flow in Dataflow Systems: When Ease-of-Use Meets High Performance"
-  authors: "Gabor E. Gevay, Tilmann Rabl, Sebastian Bress, Lorand Madai-Tahy, Jorge-Arnulfo Quiane-Ruiz, Volker Markl"
-  venue: "37th {IEEE} International Conference on Data Engineering, {ICDE} 2021, Chania, Greece, April 19-22, 2021"
-  year: "2021"
-  category: "dataflow"
+- title: "Distributed Join Algorithms on Thousands of Cores"
+  authors: "Claude Barthels, Gustavo Alonso, Torsten Hoefler, Timo Schneider, Ingo Mueller"
+  venue: "Proc. VLDB Endow."
+  year: "2017"
+  category: "disc"
   required: false
 
-- title: "Spark SQL: Relational data processing in Spark"
-  authors: "Michael Armbrust, Reynold S. Xin, Cheng Lian, Yin Huai, Davies Liu, Joseph K. Bradley, Xiangrui Meng, Tomer Kaftan, Michael J. Franklin, Ali Ghodsi, Matei Zaharia"
-  venue: "Proceedings of the ACM International Conference on Management of Data (SIGMO)"
-  year: "2015"
-  category: "dataflow"
-  required: true
+- title: "Runtime Code Generation in Cloudera Impala."
+  authors: "Skye Wanderman-Milne, Nong Li"
+  venue: "IEEE Data Eng. Bull."
+  year: "2014"
+  category: "disc"
+  required: false
 
-- title: "Representations and Optimizations for Embedded Parallel Dataflow Languages"
-  authors: "Alexander Alexandrov, Georgi Krastev, Volker Markl"
-  venue: "ACM} Trans. Database Syst."
-  year: "2019"
+- title: "RIOS: Runtime Integrated Optimizer for Spark"
+  authors: "Youfu Li, Mingda Li, Ling Ding, Matteo Interlandi"
+  venue: "Proceedings of the ACM Symposium on Cloud Computing, SoCC 2018, Carlsbad, CA, USA, October 11-13, 2018"
+  year: "2018"
+  category: "disc"
+  required: false
+
+- title: "Hyracks: A flexible and extensible foundation for data-intensive computing"
+  authors: "Vinayak Borkar, Michael Carey, Raman Grover, Nicola Onose, Rares Vernica"
+  venue: "Data Engineering (ICDE), 2011 IEEE 27th International Conference on"
+  year: "2011"
+  category: "disc"
+  required: false
+
+- title: "A practical scalable distributed B-tree"
+  authors: "Marcos K. Aguilera, Wojciech Golab, Mehul A. Shah"
+  venue: "Proc. VLDB Endow."
+  year: "2008"
+  category: "disc"
+  required: false
+
+- title: "AsterixDB: A scalable, open source BDMS"
+  authors: "Sattam Alsubaiee, Yasser Altowim, Hotham Altwaijry, Alexander Behm, Vinayak Borkar, Yingyi Bu, Michael Carey, Inci Cetindil, Madhusudan Cheelangi, Khurram Faraaz, others"
+  venue: "Proceedings of the VLDB Endowment"
+  year: "2014"
+  category: "disc"
+  required: false
+
+- title: "SharedDB: killing one thousand queries with one stone"
+  authors: "Georgios Giannikis, Gustavo Alonso, Donald Kossmann"
+  venue: "Proceedings of the VLDB Endowment"
+  year: "2012"
+  category: "disc"
+  required: false
+
+- title: "In-Memory Performance for Big Data"
+  authors: "Goetz Graefe, Haris Volos, Hideaki Kimura, Harumi A. Kuno, Joseph Tucek, Mark Lillibridge, Alistair C. Veitch"
+  venue: "Proc. VLDB Endow."
+  year: "2014"
   category: "disc"
   required: false
 
 
 ################################################################################
+# DF LANGUAGES
+
+- title: "Spark SQL: Relational data processing in Spark"
+  authors: "Michael Armbrust, Reynold S. Xin, Cheng Lian, Yin Huai, Davies Liu, Joseph K. Bradley, Xiangrui Meng, Tomer Kaftan, Michael J. Franklin, Ali Ghodsi, Matei Zaharia"
+  venue: "Proceedings of the ACM International Conference on Management of Data (SIGMOD)"
+  year: "2015"
+  category: "dataflow"
+  required: true
+
+- title: "Efficient Control Flow in Dataflow Systems: When Ease-of-Use Meets High Performance"
+  authors: "Gabor E. Gevay, Tilmann Rabl, Sebastian Bress, Lorand Madai-Tahy, Jorge-Arnulfo Quiane-Ruiz, Volker Markl"
+  venue: "37th IEEE International Conference on Data Engineering, ICDE 2021, Chania, Greece, April 19-22, 2021"
+  year: "2021"
+  category: "dataflow"
+  required: false
+
+- title: "Representations and Optimizations for Embedded Parallel Dataflow Languages"
+  authors: "Alexander Alexandrov, Georgi Krastev, Volker Markl"
+  venue: "ACM} Trans. Database Syst."
+  year: "2019"
+  category: "dataflow"
+  required: false
+
+- title: "Spinning fast iterative data flows"
+  authors: "Stephan Ewen, Kostas Tzoumas, Moritz Kaufmann, Volker Markl"
+  venue: "Proceedings of the VLDB Endowment"
+  year: "2012"
+  category: "disc"
+  required: false
+
+- title: "Big Data Analytics with Datalog Queries on Spark"
+  authors: "Alexander Shkapsky, Mohan Yang, Matteo Interlandi, Hsuan Chiu, Tyson Condie, Carlo Zaniolo"
+  venue: "SIGMOD. ACM"
+  year: "2016"
+  category: "disc"
+  required: false
+
+- title: "Tracing nested data with structural provenance for big data analytics"
+  authors: "Ralf Diestelk{\"{a}}mper, Melanie Herschel"
+  venue: "Proceedings of the 23rd International Conference on Extending Database Technology, {EDBT} 2020, Copenhagen, Denmark, March 30 - April 02, 2020"
+  year: "2020"
+  category: "disc"
+  required: false
+
+- title: "Orca: a modular query optimizer architecture for big data"
+  authors: "Mohamed A Soliman, Lyublena Antova, Venkatesh Raghavan, Amr El-Helw, Zhongxian Gu, Entong Shen, George C Caragea, Carlos Garcia-Alvarado, Foyzur Rahman, Michalis Petropoulos, others"
+  venue: "Proceedings of the 2014 ACM SIGMOD international conference on Management of data"
+  year: "2014"
+  category: "disc"
+  required: false
+
+- title: "Apache Calcite: {A} Foundational Framework for Optimized Query Processing Over Heterogeneous Data Sources"
+  authors: "Edmon Begoli, Jesus Camacho-Rodriguez, Julian Hyde, Michael J. Mior, Daniel Lemire"
+  venue: "Proceedings of the 2018 International Conference on Management of Data, {SIGMOD} Conference 2018, Houston, TX, USA, June 10-15, 2018"
+  year: "2018"
+  category: "disc"
+  required: false
+
+
+
+################################################################################
 # STREAMING ANALYTICS
+
+- title: "Kafka: A distributed messaging system for log processing"
+  authors: "Jay Kreps, Neha Narkhede, Jun Rao, others"
+  venue: "Proceedings of the NetDB"
+  year: "2011"
+  category: "streams"
+  required: true
+
+- title: "Apache flink: Stream and batch processing in a single engine"
+  authors: "Paris Carbone, Stephan Ewen, Seif Haridi, Asterios Katsifodimos, Volker Markl, Kostas Tzoumas"
+  venue: "Data Engineering"
+  year: "2015"
+  category: "streams"
+  required: false
+
+- title: "Storm@twitter"
+  authors: "Ankit Toshniwal, Siddarth Taneja, Amit Shukla, Karthikeyan Ramasamy, Jignesh M. Patel, Sanjeev Kulkarni, Jason Jackson, Krishna Gade, Maosong Fu, Jake Donham, Nikunj Bhagat, Sailesh Mittal, Dmitriy V. Ryaboy"
+  venue: "International Conference on Management of Data, {SIGMOD} 2014, Snowbird, UT, USA, June 22-27, 2014"
+  year: "2014"
+  category: "streams"
+  required: false
+
+- title: "TelegraphCQ: continuous dataflow processing"
+  authors: "S. Chandrasekaran, O. Cooper, A. Deshpande, M.J. Franklin, J.M. Hellerstein, W. Hong, S. Krishnamurthy, S.R. Madden, F. Reiss, M.A. Shah"
+  venue: "Proceedings of the 2003 ACM SIGMOD international conference on Management of data"
+  year: "2003"
+  category: "streams"
+  required: false
 
 
 
 ################################################################################
 # DISTRIBUTED TRANSACTION PROCESSING
+
+- title: "A New Presumed Commit Optimization for Two Phase Commit"
+  authors: "Butler W. Lampson, David B. Lomet"
+  venue: "19th International Conference on Very Large Data Bases, August 24-27, 1993, Dublin, Ireland, Proceedings"
+  year: "1993"
+  category: "cc"
+  required: true
+
+- title: "In Search of an Understandable Consensus Algorithm."
+  authors: "Diego Ongaro, John K Ousterhout"
+  venue: "USENIX Annual Technical Conference"
+  year: "2014"
+  category: "cc"
+  required: true
 
 - title: "H-store: a high-performance, distributed main memory transaction processing system"
   authors: "Robert Kallman, Hideaki Kimura, Jonathan Natkins, Andrew Pavlo, Alexander Rasin, Stanley Zdonik, Evan PC Jones, Samuel Madden, Michael Stonebraker, Yang Zhang, others"
@@ -125,5 +286,33 @@
   authors: "Alexander Thomson, Thaddeus Diamond, Shu-Chun Weng, Kun Ren, Philip Shao, Daniel J Abadi"
   venue: "Proceedings of the 2012 ACM SIGMOD International Conference on Management of Data"
   year: "2012"
+  category: "cc"
+  required: false
+
+- title: "The Memsql Query Optimizer: {A} Modern Optimizer for Real-Time Analytics in a Distributed Database"
+  authors: "Jack Chen, Samir Jindel, Robert Walzer, Rajkumar Sen, Nika Jimsheleishvilli, Michael Andrews"
+  venue: "Proc. {VLDB} Endow."
+  year: "2016"
+  category: "cc"
+  required: false
+
+- title: "Spanner: Google's Globally-Distributed Database"
+  authors: "J.C. Corbett, J. Dean, M. Epstein, A. Fikes, C. Frost, JJ Furman, S. Ghemawat, A. Gubarev, C. Heiser, P. Hochschild, others"
+  venue: "OSDI"
+  year: "2012"
+  category: "cc"
+  required: false
+
+- title: "Highly Available Transactions: Virtues and Limitations"
+  authors: "Peter Bailis, Aaron Davidson, Alan D. Fekete, Ali Ghodsi, Joseph M. Hellerstein, Ion Stoica"
+  venue: "Proc. {VLDB} Endow."
+  year: "2013"
+  category: "cc"
+  required: false
+
+- title: "Distributed snapshot isolation: global transactions pay globally, local transactions pay locally"
+  authors: "Carsten Binnig, Stefan Hildenbrand, Franz F{\"a}rber, Donald Kossmann, Juchang Lee, Norman May"
+  venue: "The VLDB Journal---The International Journal on Very Large Data Bases"
+  year: "2014"
   category: "cc"
   required: false

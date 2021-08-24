@@ -8,8 +8,8 @@ main:
     url: /review.html
   - title: "Lectures"
     url: /lectures.html
-  - title: "Notebooks"
-    url: /notebooks.html
+  # - title: "Notebooks"
+  #   url: /notebooks.html
   - title: "Syllabus"
     url: /syllbus.html
   - title: "Discord"

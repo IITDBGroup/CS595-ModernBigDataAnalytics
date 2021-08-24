@@ -1,31 +1,34 @@
 - title: "Logistics + Foundataions of Scalable and Distributed Storage and Comptuation"
-  notebooks: [  ]
-  reading: []
   slides: [ logistics, foundations ]
   description: "We will discuss logistics of the course, projects, and paper assignments. Furthermore, we will discuss important foundations of distributed analytics including fault tolerance, consistency and consensus, load-balancing, sacalable algorithm desin and data placement."
-  numdates: 1
+  numdates: 4
 
-- title: "Distributed Storage"
-  description: "We will learn about distributed approaches for handling storage unstructured and data structed data."
+- title: "Distributed Storage & NoSQL Databases"
+  description: "We will learn about distributed approaches for handling storage of unstructured and data structed data."
+  category: storage
   slides: [ storage ]
-  numdates: 1
+  numdates: 5
 
 - title: "Distributed Batch Processing"
-  description: "We will learn about DISC (data-intensive scalable computing) systems which expose to users high-level languages for processing large datasets in a distributed fashion."
+  description: "We will learn about DISC (data-intensive scalable computing) systems which automatically distribute the processing of complex tasks to a cluster of nodes."
+  category: disc
   slides: [ disc ]
-  numdates: 1
+  numdates: 6
 
-- title: "High-level Dataflow Languages"
-  description: "We learn about the high-level dataflow languages used in big data processing and how these languages are implemented by DISC systems."
+- title: "High-level Dataflow & Query Languages"
+  description: "We will learn about the high-level dataflow languages used in big data processing and how these languages are implemented by DISC systems."
+  category: dataflow
   slides: [ dflang ]
-  numdates: 1
+  numdates: 5
 
-- title: "Streaming Analytics"
-  slides: [ streams ]
-  description: "We will learn about how to comment our code and automatically create documentation from these comments."
-  numdates: 1
-
-- title: "Distributed Transaction Processing"
+- title: "Distributed Transaction Processing, Consensus, and Consensus"
   slides: [ oltp ]
-  description: "We will learn about scalable distributed approaches for transaction processing including so called NewSQL systems."
-  numdates: 1
+  description: "We will learn about scalable distributed approaches for transaction processing and consistency including so called NewSQL systems."
+  category: cc
+  numdates: 5
+
+- title: "Distributed Stream Processing & Publish-Subscribe"
+  slides: [ streams ]
+  description: "We will learn about distributed systems for processing streams of data."
+  category: streams
+  numdates: 3
