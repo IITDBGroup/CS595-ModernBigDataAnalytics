@@ -1,0 +1,299 @@
+---
+shortname: foundations
+title: Introduction to Distributed Computing
+---
+
+<section data-markdown>
+	<textarea data-template>
+		# {{ site.data.course.title }} - {{ page.title }}
+
+		**Lecturer**: [Boris Glavic]({{ site.data.instructor.home }})
+
+		**Semester**: {{ site.data.course.semester }} {{ site.data.course.year }}
+
+	</textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+    # 1. Introduction
+
+    ## Distributed Computing (What / Why)
+  </textarea>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+	## What is distributed computing?
+
+* Executing programs on a **cluster** of **machines** requiring **communication** among the machines of the cluster.
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Why do we need distributed computing?
+
+* **Big data**
+  * Size of data we want to process is larger than the storage capacity of a single machine
+* **Expensive computation**
+  * Computations that would take too long on a single machine
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Why Examples
+
+- **Data size**
+  - Store the Facebook network graph with 100s of millions of users
+- **Expensive computation**
+  - Compute the PageRank of every webpage on the internet
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## What is horizontal scaling?
+
+- **Scaling**: how is the runtime of a computational task is affected by the number of nodes we are running on?
+- Ideally:
+  - *linear scaling*: the tasks runs $n$ times faster on $n$ nodes than on $1$ node
+  </textarea>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+    # 1. Introduction
+
+    ## Challenges Distributed Computing
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Challenges of distributed computing
+
+* **Load-balancing**: *How to evenly distribute data and work to the machines in the cluster?*
+* **Fault tolerance**: *How to deal with failures?*
+* **Consistency**: *How to syncronize information across nodes?*
+* **Scalable algorithms**: *How design an algorithm that scales?*
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Load balancing
+
+- Consider a computation running distributively on $n$ nodes
+  - How long to finish the computation?
+  - Have to wait for the all nodes to finish!
+- Want to distribute work evenly to equalize the task execution times of nodes
+  - this is called **load balancing**
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## The problem with *stragglers*
+
+- Random events (OS noise, intermittent failures) cause nodes to slow down
+- Events that significantly affect performance are rare
+- In large clusters the chance that some node will be significantly slower than the others is high!
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Straggler Example
+
+- $1000$ node cluster
+- each node has a $1\%$ chance of taking twice as slow than the expectation
+- There is a $1 - (0.99^{1000}) \simeq 99.99\%$ chance that at least one node will be slow
+- Runtime is pretty much guaranteed to be double than what one may expect!
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Moving Data vs. Compute
+
+- To run a task $t$ over a piece of data $d$ we have to ...
+- Move $d$ to the node on which we want to execute $t$ (**data movement**)
+- Execute $t$ on a node that currently stores $d$ (**bringing compute to data**)
+  </textarea>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+## Fault tolerance
+
+- Types of failures in distributed systems:
+  - **node failures**
+  - **network failures**
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Node failures
+
+- **intermittent**
+  - *e.g., restart*
+  - data on stable media is not lost, but state of computation is
+- **permanent**
+  - *e.g., hard drive fails permanently*
+  - all data and computational state on the node is lost
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Network failures
+
+- network partition
+  - *e.g., switch fails*
+  - some nodes cannot communicate with each other
+  - => no synchronization possible
+  </textarea>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+## Failures are the norm!
+
+- Same problem as with stragglers
+  - each node has a low chance of failure
+  - the chance that some node in the cluster will fail during a computation is high
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Fault tolerance
+
+- Build systems that can tolerate / recover form failures
+- **Fault tolerance techniques**
+  - **Failure detection**
+    - *e.g., heartbeat mechanism*
+  - **Redundancy**
+    - *e.g., replication: each piece of data is stored on more than one node*
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Consistency
+
+- Computations may require some **global state**
+  - *e.g., how much items are in stock for an online retailer*
+- Nodes need to agree on the global state (**consistency**)
+  - **Consensus protocol** achieve this under failures
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## CAP
+
+- **Consistency**: all nodes agree on global state
+- **Availability**: the system is available at all times
+- **Partition tolerance**: the system can handle network partitions
+
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## CAP Theorem
+
+- The CAP theorem states:
+  - All three properties (CAP) cannot be guaranteed
+  - It is possible to build systems that guarantee any combination of two of these properties, e.g., CA
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## CAP design space
+
+- **CA**: *consistent* and *available*
+  - the system is always available and consistent, but cannot tolerate network partitions
+- **CP**: *consistent* and *partition-tolerant*
+  - the system is always consistent and can tolerate network partitions, but may be unavailable when network partitions occur
+- **AP**: *available* and *partition-tolerant*
+  - the system is always available and can tolerate network partitions, but may be inconsistent when network partitions occur
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Scalable algorithm design
+
+- **Easy example**
+  - take an large array of integers and add a constant to each element
+- **Harder example**
+  - transitive closure of a graph
+  </textarea>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+    # 1. Introduction
+
+    ## How to build distributed systems
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Building distributed systems is hard
+
+- **Many pitfalls**
+  - Maintaining distributed state (consistency)
+  - Fault tolerance
+  - Load balancing
+- **Requires a lot of background**
+  - OS and networking
+  - Parallel algorithm design & programming
+  - Distributed system's theory (consensus protocols)
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Distributed systems are hard to debug
+
+- Non-determinism because of parallelism
+   - *e.g., race conditions*
+- Failures
+- Large amount of state
+- Access to machines over a network
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+    # 1. Introduction
+
+    ## Why are big data systems successful?
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Transparency
+
+- Hide the complexities of distributed computation from the user
+- **Examples**
+   - **Distributed file systems**
+     - Access the storage of a cluster of nodes as a single logical file system
+   - **Dataflow engines**
+     - User expresses a computation as a simple program
+  </textarea>
+</section>
