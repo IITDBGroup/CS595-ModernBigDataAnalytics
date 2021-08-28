@@ -1,0 +1,280 @@
+---
+shortname: distributed_file_systems
+title: Storage - Distributed File Systems
+---
+
+<section data-markdown>
+	<textarea data-template>
+		# {{ site.data.course.title }} - {{ page.title }}
+
+		**Lecturer**: [Boris Glavic]({{ site.data.instructor.home }})
+
+		**Semester**: {{ site.data.course.semester }} {{ site.data.course.year }}
+
+	</textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+    # 2. Distributed Storage
+
+    ## Distributed File Systems
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Distributed File System
+
+- Store files in a cluster of machines
+- Manage **meta-data** (file-system structure, permissions, ...) and **data** (file content)
+- **Operations:**
+  - Create / delete files
+  - Directory operations
+  - Read file (sequentially / random access)
+  - Write file (append / random access)
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Requirements
+
+- Support files larger than storage of a single machine
+- **Fault Tolerance**
+   - **Data loss**: Do not loose data when a node in the cluster fails
+   - **Availability**: data should be accessible even under
+      - network failures
+      - node failures
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Requirements cont.
+
+- **Load balancing**
+  - Distribute file system operations across the cluster
+  - Balance operations across the cluster
+- **Transparency**
+  - clients do not need to decide on data distribution
+  - clients do not need to handle fault tolerance
+  </textarea>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+## Fault tolerance - Data loss
+
+- If data is stored on only one node, then data loss cannot be prevented
+- => Each piece of data has to be stored on multiple nodes (**replication**) or at least some additional information has to be stored on other nodes to enable recovery of lost data (e.g., erasure coding)
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Replication
+
+- Each piece of data is replicated across $m$ nodes
+- How to choose number of replicas?
+- How to keep replicas in sync (consistency)?
+- How to detect missing replicate and compensate for that?
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## How to chooose the number of replicas?
+
+- Larger $m$
+    - Wasting storage
+    - Decrease chance of data loss
+- Smaller $m$
+    - Less wasted storage
+    - Higher chance of data loss
+- Sample data point:
+  - 2-3-way replication is sufficient for 99.9% reliability in most scenarios
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Characteristics of Replication
+
+- **Read performance**
+    - If all replicas are kept up to sync, then we can read from multiple replicas in parallel
+    - $m$-way replication improves read through-put by a factor of $m$
+- **Write performance**
+    - Have to write to all replicas
+    - In addition to syncronization overhead (consistency) this causes $m$-times the write load
+- **Storage requirements**
+    - increased by a factor of $m$
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Characteristics of Replication cont.
+
+- **Write performance**
+    - Have to write to all replicas
+    - In addition to syncronization overhead (consistency) this causes $m$-times the write load
+- **Storage requirements**
+    - increased by a factor of $m$
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Fault tolerance - Network issues
+
+- Replication can help too
+- Need to be aware of network infrastructure
+  - Do not place all replicas on nodes that are connected to the same switch
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Data Placement
+
+- How to balance data distribution across a cluster?
+- At a file level?
+  - High computational complexity
+- Split files into blocks
+  - Distribute individual blocks
+  - What is a good block size?
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Data Placement cont.
+
+- How to determine which block goes where?
+- e.g., hash function
+  - if number of blocks is large enough that almost guarantees even distribution
+  </textarea>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+	## Meta-data Management
+
+- **Dedicated nodes for meta-data management**
+  - A subsets of $m < n$ nodes in the cluster handle metadata management
+- **Truely distributed meta-data management**
+  - All nodes participate in meta-data management
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Consistency
+
+- Allow full parallel access to files for random reads and writes
+    - Readers and writers need to synchronized for all operations
+    - Essentially same problems as in transaction processing
+    - => Flexible, but requires complicated and expensive strong consistency
+- Limit file operations and/or restricting concurrent access
+    - e.g., append-only or no modification after creation
+    - only one writer
+  </textarea>
+</section>
+
+
+
+<!-- ******************************************************************************** -->
+<!-- HADOOP -->
+<!-- ******************************************************************************** -->
+<section data-markdown>
+  <textarea data-template>
+# 2. Distributed Storage
+
+## Hadoop Distributed Filesystem (HDFS)
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## HDFS
+
+- Open-source distributed file system
+- Modelled after Google's Distributed Filesystem (GFS)
+- Written in Java
+- Optimized for storage of large files
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## File System Structure
+
+- An HDFS file system is made of inodes (directories or files) which have associated metadata (e.g., permissions)
+- Files consist of one or more blocks
+    - The block size is much larger than on single node file systems (e.g., 128MB)
+- Some blocks may be smaller than the block size
+    - *A 200MB file will be stored as a 128MB and a 72MB block*
+    - *A 4KB file will be stored as a 4KB block*
+  </textarea>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+	## Architecture
+
+- **Name node**
+  - stores filesystem meta-data
+    - directory structure
+    - inode metadata (permissions, ...)
+    - which blocks belong to which files
+  - handles client requests for FS metadata
+  - single name node per cluster (possible hot or cold stand-bys)
+  </textarea>
+</section>
+<section data-markdown>
+  <textarea data-template>
+	## Architecture
+
+- **Data node**
+    - stores file content (blocks and block metadata)
+    - clients directly communicating with data nodes for reading/writing
+    - All nodes in the cluster except for name nodes (and potentially some other exceptions discussed later) are data nodes
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Fault tolerance - data loss
+
+- Each block is replicated to multiple data nodes
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Fault tolerance - network failures
+
+- HDFS's block replica placement strategy is
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Fault tolerance - data corruption
+
+    - when a client writes or reads a block, it computes a *checksum*
+    -
+  </textarea>
+</section>
+
+
+
+<section data-markdown>
+  <textarea data-template>
+	##
+  </textarea>
+</section>

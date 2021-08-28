@@ -1,0 +1,225 @@
+---
+shortname: data_placement
+title: Storage - Data Placement
+---
+
+<section data-markdown>
+	<textarea data-template>
+# {{ site.data.course.title }} - {{ page.title }}
+
+**Lecturer**: [Boris Glavic]({{ site.data.instructor.home }})
+
+**Semester**: {{ site.data.course.semester }} {{ site.data.course.year }}
+
+	</textarea>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+# 2. Distributed Storage
+## Data Placement
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Considerations for Data Placement
+
+- **Balance storage load**
+  - place data on nodes to achieve (roughly) even storage utilization
+- **Enable local computations**
+  - can schedule computation on the node storing the data (reduced network traffic)
+- **Data skipping**
+  - avoid reading data that can be shown to be irrelevant for the computation
+  </textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## "Semantic" Data Placement
+
+- **How can we determine upfront which computation needs what data?**
+- **Use *semantic* properties for data placement**
+  - place data data based on its characteristics
+  - *e.g., place all customers from a region (e.g., US) on the same node*
+- **Data skipping**
+  - *e.g., do not read US customer data when computing revenue for region Europe*
+</textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Data Partitioning
+
+    - For storing (semi-)structured data
+      - *e.g., relations or key-value pairs*
+    - Place the data by partitioning collections of data items into subsets called **fragments**
+      - *e.g., one subset of a table per node in the cluster*
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Type of Partitioning
+
+    - **Horizontal Partitioning**
+      - split a relation into **fragments** each storing a subset of the relation's rows
+    - **Vertical Partitioning**
+      - split a relation into **fragments** each storing a subset of the relation's columns
+  </textarea>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+## Horizontal Partitioning
+
+    - Given relation $R$, a **horizontal partition** of $R$ is a set of relations called **fragments** $R_1$, ..., $R_n$ such that:
+      - the fragments are disjoint: $\forall i \neq j \in [1,n]: R_i \cap R_j = \emptyset$
+      - all rows are accounted for: $R_1 \cup \ldots \cup R_n = R$
+      - $\forall i \in [1,n]$: $R_i$ has the same schema as $R$
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Horizontal Partitioning - Example
+
+- $R$
+
+| Item      | Category  | Price |
+|:----------|:----------|:------|
+| Lawnmover | Gardening | 1300  |
+| Shovel    | Gardening | 14    |
+| Microwave | Kitchen   | 40    |
+| Spoon     | Kitchen   | 3     |
+
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Horizontal Partitioning - Example
+
+- $R_1$
+
+| Item      | Category  | Price |
+|:----------|:----------|:------|
+| Lawnmover | Gardening | 1300  |
+| Shovel    | Gardening | 14    |
+| Microwave | Kitchen   | 40    |
+
+- $R_2$
+
+| Item      | Category  | Price |
+|:----------|:----------|:------|
+| Spoon     | Kitchen   | 3     |
+
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Types of Horizontal Partitioning
+
+- **Hash Partitioning**
+  - compute a hash function $h$ over a (set of) attribute(s) to map rows to fragments:
+  - fragment $f_i = \{ t \mid t \in R \land h(t.A) = i \}$
+- **Range Partitioning**
+  - split the domain $\mathcal{D}(A)$ of an attribute $A$ into a set of ranges $\mathcal{R}_1$, ,..., $\mathcal{R}_n$
+  - fragment $f_i = \{ t \mid t \in R \land t.A \in \mathcal{R}_i \}$
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Hash Partitioning - Example
+
+- hash partition on `Category` with $h(Gardening) = 0$ and $h(Kitchen) = 1$
+
+| Item      | Category  | Price | Fragment |
+|:----------|:----------|:------|---------:|
+| Lawnmover | Gardening | 1300  |    $f_0$ |
+| Shovel    | Gardening | 14    |    $f_0$ |
+| Microwave | Kitchen   | 40    |    $f_1$ |
+| Spoon     | Kitchen   | 3     |    $f_1$ |
+
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Range Partitioning - Example
+
+- range partition on `Price` using
+- $\mathcal{R}_1 = [1,20], \mathcal{R}_2 = [21,100], \mathcal{R}_3 = [101,3000]$
+
+| Item      | Category  | Price | Fragment |
+|:----------|:----------|:------|---------:|
+| Lawnmover | Gardening | 1300  |    $f_3$ |
+| Shovel    | Gardening | 14    |    $f_1$ |
+| Microwave | Kitchen   | 40    |    $f_2$ |
+| Spoon     | Kitchen   | 3     |    $f_1$ |
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Vertical Partitioning
+
+- let $PK(R)$ be the primary key columns of $R$
+- split the columns in $\textsc{Schema}(R)$ into subsets $S_1, \ldots, S_n$ such that:
+  - all columns are accounted for: $\bigcup_{i=1}^{n} S_i = \textsc{Schema}(R)$
+  - each set of columns contains the primary key $\forall i \in [1,n]: PK(R) \in S_i$
+- fragment $f_i = \{ t.S_i \mid t \in R \}$
+- Note that $R_1 \bowtie \ldots \bowtie R_n = R$
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Vertical Partitioning - Example
+
+- assume that `Item` is the primary key
+- $S_1 = \{Item, Category\}, S_2 = \{ Item, Category \}$
+- fragment $f_1$
+
+| Item      | Category  |
+|:----------|:----------|
+| Lawnmover | Gardening |
+| Shovel    | Gardening |
+| Microwave | Kitchen   |
+| Spoon     | Kitchen   |
+
+- fragment $f_2$
+| Item      | Price |
+|:----------|:------|
+| Lawnmover | 1300  |
+| Shovel    | 14    |
+| Microwave | 40    |
+| Spoon     | 3     |
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Exploiting Partitioning in Query Processing
+
+- **Skipping fragments based on selection conditions**
+  - hash partitioning on $A$ with hash function $h$
+    - `A = const` => only fragment for $h(const)$ contains rows where $A= const$
+  - range partitioning on $A$
+    - `A = const` => only fragment for the range containing `const` is needed
+    - `c1 <= A <=c2` => only fragments whose range overlaps with $[c1,c2]$
+- **Skip fragments with columns that are not accessed by a query**
+  - this query only needs the `Item` and `Price` attributes
+```sql
+SELECT Item
+FROM Items
+WHERE Price < 20
+```
+- **Enable operator implementations that require certain data placement**
+  - we will discuss this when discussing distributed query processing / compute
+</textarea>
+</section>

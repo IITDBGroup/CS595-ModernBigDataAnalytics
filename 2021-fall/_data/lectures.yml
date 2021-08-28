@@ -6,7 +6,7 @@
 - title: "Distributed Storage & NoSQL Databases"
   description: "We will learn about distributed approaches for handling storage of unstructured and data structed data."
   category: storage
-  slides: [ storage ]
+  slides: [ distributed_file_systems ]
   numdates: 6
 
 - title: "Distributed Batch Processing"
