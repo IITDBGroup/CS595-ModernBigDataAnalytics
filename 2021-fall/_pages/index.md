@@ -13,6 +13,13 @@ This course teaches you about systems, algorithms, and the fundamental principle
 * **Project**: information about the project: [here]({{ site.baseurl }}/project.html)
 * **Literature review**: information about the literature review: [here]({{ site.baseurl }}/review.html)
 
+# Important Dates
+
+- Select a paper to review: **{{ site.data.course.due.paper_selection }}**
+- Submit the report review report: **{{ site.data.course.due.paper_report }}**
+- Select a project: **{{ site.data.course.due.project_selection }}**
+- Meet to discuss project design: **{{ site.data.course.due.project_design }}**
+- Finish project implementation: **{{ site.data.course.due.project_presentation }}**
 
 # Workload and Grading Scheme
 

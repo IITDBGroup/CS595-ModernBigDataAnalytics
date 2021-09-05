@@ -94,7 +94,7 @@ title: Storage - Distributed File Systems
     - Less wasted storage
     - Higher chance of data loss
 - Sample data point:
-  - 2-3-way replication is sufficient for 99.9% reliability in most scenarios
+  - 2-3-way replication sufficient for 99.9% reliability
   </textarea>
 </section>
 
@@ -105,13 +105,10 @@ title: Storage - Distributed File Systems
 - **Read performance**
     - If all replicas are kept up to sync, then we can read from multiple replicas in parallel
     - $m$-way replication improves read through-put by a factor of $m$
-- **Write performance**
-    - Have to write to all replicas
-    - In addition to syncronization overhead (consistency) this causes $m$-times the write load
-- **Storage requirements**
-    - increased by a factor of $m$
   </textarea>
 </section>
+
+
 
 <section data-markdown>
   <textarea data-template>
@@ -178,11 +175,19 @@ title: Storage - Distributed File Systems
     - Readers and writers need to synchronized for all operations
     - Essentially same problems as in transaction processing
     - => Flexible, but requires complicated and expensive strong consistency
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+	## Consistency
+
 - Limit file operations and/or restricting concurrent access
     - e.g., append-only or no modification after creation
     - only one writer
   </textarea>
 </section>
+
 
 
 
@@ -216,8 +221,8 @@ title: Storage - Distributed File Systems
 - Files consist of one or more blocks
     - The block size is much larger than on single node file systems (e.g., 128MB)
 - Some blocks may be smaller than the block size
-    - *A 200MB file will be stored as a 128MB and a 72MB block*
-    - *A 4KB file will be stored as a 4KB block*
+    - *200MB file: 128MB + 72MB block*
+    - *4KB file: 4KB block*
   </textarea>
 </section>
 
@@ -237,7 +242,7 @@ title: Storage - Distributed File Systems
 </section>
 <section data-markdown>
   <textarea data-template>
-	## Architecture
+## Architecture
 
 - **Data node**
     - stores file content (blocks and block metadata)
@@ -248,26 +253,41 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## Fault tolerance - data loss
+## Fault tolerance - data loss
 
-- Each block is replicated to multiple data nodes
+- Each block is replicated to multiple data nodes (2-3 is typical)
+- Name node tracks which data nodes store which blocks
+- If a replica of block `b` is lost (e.g., node failure) then the name node instructs a data node storing  `b` to send the block to another data node to achieve the desired number of replicas
   </textarea>
 </section>
 
 <section data-markdown>
   <textarea data-template>
-	## Fault tolerance - network failures
+## Fault tolerance - node failure
 
-- HDFS's block replica placement strategy is
+- data nodes send **heart beat** messages to name node every 3 seconds
+  - piggyback storage utilization and load stats
+- If the name nodes has not received a heart beat from a data node in a certain amount of time, it schedules the creation of new replicas of the blocks stored on this node
+  </textarea>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+## Fault tolerance - network failures
+
+- HDFS's block replica placement strategy is network topology aware
+- Replicas of blocks are stored on separate racks to avoid loss of availability when a switch connecting the nodes in a rack to the cluster is down
   </textarea>
 </section>
 
 <section data-markdown>
   <textarea data-template>
-	## Fault tolerance - data corruption
+## Fault tolerance - data corruption
 
-    - when a client writes or reads a block, it computes a *checksum*
-    -
+- when a client writes or reads a block, it computes a **checksum**
+- data nodes store the checksums for blocks and send them to clients reading the block
+- if the checksum computed based on a read block is different from the stored checksum, then this replica is dropped
   </textarea>
 </section>
 
@@ -275,6 +295,110 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	##
+## Reading
+
+- To read a file, the client sends a request to the name node
+- the name node sends the client
+  - the list of blocks for the file
+  - the location of all replicas for each block
+- the client then contacts data nodes directly to read blocks
   </textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Writing & Consistency
+
+- Writing is append only in HDFS
+- At any time, only one client can write a file
+- The name node maintains locks for each file and declines write requests by clients that want to write a file that is currently locked
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Writing a Block
+
+- A client holding a lock for a file contacts the name node for each block it is writing to get the list of data nodes that will store replicas of the block
+- A pipeline is established between the client and the data nodes that will store replicas
+- Data is send in smaller chunks
+  - from client to first data node
+  - from first data node to second data node
+  - ...
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Concurrent Writing and Reading
+
+- blocks written to a file are hidden from readers until either
+  - the client closes the file
+  - the client issues a flush operation
+- in either case the name nodes updates the file metadata to include the new blocks
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Metadata operations
+
+- the name node keeps the file system metadata in memory
+- periodically a snapshot is written to disk
+- changes to metadata are ...
+  - not directly applied to the in memory copy of the metadata
+  - written to journal (WAL)
+- taking a snapshot
+  - apply journal to copy of metadata and write to disk
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Name Node Stand-by
+
+- WAL enables to keep a stand-by name node
+  - recover from name node failures
+- The name node sends journal entries to the stand-by which applies the journal to its memory snapshot
+- Can also be used to reduce load on the name node by outsourcing of taking snapshots
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## HDFS Summary
+
+- **fault tolerance**: replication
+   - detection of failures through heart beat
+   - replica placement is topology-aware
+- **metadata management**:
+  - single node (name node)
+- **consistency**:
+  - prevent concurrent writes
+  - changes to file are atomic (from a reader's perspective)
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Advantages & Disadvantages
+
+- **Advantages**
+  - well suited for batch processing
+  - decent read performance
+  - fault tolerant
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Advantages & Disadvantages
+
+- **Disadvantages**
+  - Name node is a bottle-neck for metadata operations
+  - Inflexible write operations
+  - relatively poor write performance
+  - No concurrent writes
+  - No semantic data placement (more on this later)
+</textarea>
 </section>

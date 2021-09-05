@@ -6,8 +6,12 @@ where: "Stuart Building 239"
 when: "Tue + Thu, 9:40 am - 10:55 am"
 github_repos:  IITDBGroup/CS595-bigdata
 due:
+  paper_selection: 09/05
+  paper_report: 11/15
+  project_selection: 09/12
   project_design: 04/15
   project_implementation: 05/01
+  project_presentation: 12/01
 piazza: "https://piazza.com/iit/fall2021/cs595/home"
 workload:
   - name: "Project"

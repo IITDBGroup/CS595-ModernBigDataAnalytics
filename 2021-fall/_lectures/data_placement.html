@@ -24,9 +24,18 @@ title: Storage - Data Placement
 
 <section data-markdown>
   <textarea data-template>
-## Considerations for Data Placement
+## What is Data Placement?
 
-- **Balance storage load**
+- **Decide what data to store on which node of a cluster**
+  </textarea>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+## Considerations
+
+- **Balanced storage load**
   - place data on nodes to achieve (roughly) even storage utilization
 - **Enable local computations**
   - can schedule computation on the node storing the data (reduced network traffic)
@@ -41,7 +50,7 @@ title: Storage - Data Placement
 
 - **How can we determine upfront which computation needs what data?**
 - **Use *semantic* properties for data placement**
-  - place data data based on its characteristics
+  - place data based on its characteristics
   - *e.g., place all customers from a region (e.g., US) on the same node*
 - **Data skipping**
   - *e.g., do not read US customer data when computing revenue for region Europe*
@@ -52,10 +61,10 @@ title: Storage - Data Placement
   <textarea data-template>
 ## Data Partitioning
 
-    - For storing (semi-)structured data
-      - *e.g., relations or key-value pairs*
-    - Place the data by partitioning collections of data items into subsets called **fragments**
-      - *e.g., one subset of a table per node in the cluster*
+- For storing (semi-)structured data
+  - *e.g., relations or key-value pairs*
+- Place the data by partitioning collections of data items into subsets called **fragments**
+  - *e.g., one subset of a table per node in the cluster*
   </textarea>
 </section>
 
@@ -63,10 +72,10 @@ title: Storage - Data Placement
   <textarea data-template>
 ## Type of Partitioning
 
-    - **Horizontal Partitioning**
-      - split a relation into **fragments** each storing a subset of the relation's rows
-    - **Vertical Partitioning**
-      - split a relation into **fragments** each storing a subset of the relation's columns
+- **Horizontal Partitioning**
+  - split a relation into **fragments** each storing a subset of the relation's rows
+- **Vertical Partitioning**
+  - split a relation into **fragments** each storing a subset of the relation's columns
   </textarea>
 </section>
 
@@ -75,10 +84,10 @@ title: Storage - Data Placement
   <textarea data-template>
 ## Horizontal Partitioning
 
-    - Given relation $R$, a **horizontal partition** of $R$ is a set of relations called **fragments** $R_1$, ..., $R_n$ such that:
-      - the fragments are disjoint: $\forall i \neq j \in [1,n]: R_i \cap R_j = \emptyset$
-      - all rows are accounted for: $R_1 \cup \ldots \cup R_n = R$
-      - $\forall i \in [1,n]$: $R_i$ has the same schema as $R$
+- Given relation $R$, a **horizontal partition** of $R$ is a set of relations called **fragments** $R_1$, ..., $R_n$ such that:
+  - the fragments are disjoint: $\forall i \neq j \in [1,n]: R_i \cap R_j = \emptyset$
+  - all rows are accounted for: $R_1 \cup \ldots \cup R_n = R$
+  - $\forall i \in [1,n]$: $R_i$ has the same schema as $R$
   </textarea>
 </section>
 
@@ -86,7 +95,7 @@ title: Storage - Data Placement
   <textarea data-template>
 ## Horizontal Partitioning - Example
 
-- $R$
+- `Items`
 
 | Item      | Category  | Price |
 |:----------|:----------|:------|
@@ -102,7 +111,7 @@ title: Storage - Data Placement
   <textarea data-template>
 ## Horizontal Partitioning - Example
 
-- $R_1$
+- `Item_1`
 
 | Item      | Category  | Price |
 |:----------|:----------|:------|
@@ -110,7 +119,15 @@ title: Storage - Data Placement
 | Shovel    | Gardening | 14    |
 | Microwave | Kitchen   | 40    |
 
-- $R_2$
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Horizontal Partitioning - Example
+
+
+- `Item_2`
 
 | Item      | Category  | Price |
 |:----------|:----------|:------|
@@ -118,6 +135,7 @@ title: Storage - Data Placement
 
   </textarea>
 </section>
+
 
 <section data-markdown>
   <textarea data-template>
@@ -125,10 +143,10 @@ title: Storage - Data Placement
 
 - **Hash Partitioning**
   - compute a hash function $h$ over a (set of) attribute(s) to map rows to fragments:
-  - fragment $f_i = \{ t \mid t \in R \land h(t.A) = i \}$
+  - fragment $f_i = \\{ t \mid t \in R \land h(t.A) = i \\}$
 - **Range Partitioning**
   - split the domain $\mathcal{D}(A)$ of an attribute $A$ into a set of ranges $\mathcal{R}_1$, ,..., $\mathcal{R}_n$
-  - fragment $f_i = \{ t \mid t \in R \land t.A \in \mathcal{R}_i \}$
+  - fragment $f_i = \\{ t \mid t \in R \land t.A \in \mathcal{R}_i \\}$
   </textarea>
 </section>
 
@@ -168,11 +186,11 @@ title: Storage - Data Placement
   <textarea data-template>
 ## Vertical Partitioning
 
-- let $PK(R)$ be the primary key columns of $R$
-- split the columns in $\textsc{Schema}(R)$ into subsets $S_1, \ldots, S_n$ such that:
-  - all columns are accounted for: $\bigcup_{i=1}^{n} S_i = \textsc{Schema}(R)$
+- let $PK(R)$ be the primary key of $R$
+- split the columns in ${Schema}(R)$ into subsets $S_1, \ldots, S_n$ such that:
+  - all columns are accounted for: $\bigcup_{i=1}^{n} S_i = Schema(R)$
   - each set of columns contains the primary key $\forall i \in [1,n]: PK(R) \in S_i$
-- fragment $f_i = \{ t.S_i \mid t \in R \}$
+- fragment $f_i = \\{ t.S_i \mid t \in R \\}$
 - Note that $R_1 \bowtie \ldots \bowtie R_n = R$
   </textarea>
 </section>
@@ -182,7 +200,16 @@ title: Storage - Data Placement
 ## Vertical Partitioning - Example
 
 - assume that `Item` is the primary key
-- $S_1 = \{Item, Category\}, S_2 = \{ Item, Category \}$
+- $S_1 = \\{Item, Category\\}, S_2 = \\{ Item, Category \\}$
+
+
+</textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Vertical Partitioning - Example
+
 - fragment $f_1$
 
 | Item      | Category  |
@@ -192,15 +219,26 @@ title: Storage - Data Placement
 | Microwave | Kitchen   |
 | Spoon     | Kitchen   |
 
+</textarea>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+## Vertical Partitioning - Example
+
 - fragment $f_2$
+
 | Item      | Price |
 |:----------|:------|
 | Lawnmover | 1300  |
 | Shovel    | 14    |
 | Microwave | 40    |
 | Spoon     | 3     |
+
 </textarea>
 </section>
+
 
 <section data-markdown>
 <textarea data-template>
@@ -212,6 +250,13 @@ title: Storage - Data Placement
   - range partitioning on $A$
     - `A = const` => only fragment for the range containing `const` is needed
     - `c1 <= A <=c2` => only fragments whose range overlaps with $[c1,c2]$
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Exploiting Partitioning in Query Processing
+
 - **Skip fragments with columns that are not accessed by a query**
   - this query only needs the `Item` and `Price` attributes
 ```sql
@@ -219,7 +264,29 @@ SELECT Item
 FROM Items
 WHERE Price < 20
 ```
-- **Enable operator implementations that require certain data placement**
-  - we will discuss this when discussing distributed query processing / compute
 </textarea>
 </section>
+
+<section data-markdown>
+<textarea data-template>
+## Exploiting Partitioning in Query Processing
+
+- **Enable operator implementations that require certain data placement**
+  - **aggregation** - all rows from one group on a single node
+  - **join** - data with same join keys on the same node
+  - **we will discuss this when discussing distributed query processing / compute**
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Summary
+
+- Horizontal (hash or range) and vertical partitioning
+- Exploiting partitioning for computation
+</textarea>
+</section>
+
+<!-- Local Variables: -->
+<!-- mode: markdown -->
+<!-- End: -->
