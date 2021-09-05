@@ -8,7 +8,6 @@ author_profile: true
 
 This course teaches you about systems, algorithms, and the fundamental principles that enable distributed analysis of very large datasets using high-level languages, i.e., *Modern Big Data Analytics*.
 
- <!-- * **Getting started**: install Java and familize yourself with tools: [here]({{ site.baseurl }}/bootstrap.html) -->
 * **Lecture**: overview of content covered in the lectures: [here]({{ site.baseurl }}/lectures.html)
 * **Project**: information about the project: [here]({{ site.baseurl }}/project.html)
 * **Literature review**: information about the literature review: [here]({{ site.baseurl }}/review.html)
@@ -37,8 +36,6 @@ This course teaches you about systems, algorithms, and the fundamental principle
 # Syllabus
 
 - [here]({{ site.baseurl }}/syllabus.html)
-
-<a href="{{ site.data.course.syllabus  }}"><i class="far fa-file-pdf"></i> Syllabus</a>
 
 # Textbook
 
