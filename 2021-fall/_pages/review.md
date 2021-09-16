@@ -55,7 +55,6 @@ How to write a scientific article:
 | Cornelius | Tracing nested data with structural provenance for big data analytics                                   | 10/19/21          |
 | Mohammed  | Apache Calcite: A Foundational Framework for Optimized Query Processing Over Heterogeneous Data Sources | 10/19/21          |
 | Tang      | Kafka: A distributed messaging system for log processing                                                | 11/09/21          |
-| Gelot     |                                                                                                         |                   |
 
 
 # List of Papers

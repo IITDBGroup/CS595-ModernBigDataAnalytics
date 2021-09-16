@@ -6,7 +6,7 @@
 - title: "Distributed Storage & NoSQL Databases"
   description: "We will learn about distributed approaches for handling storage of unstructured and data structed data."
   category: storage
-  slides: [ distributed_file_systems, data_placement ]
+  slides: [ distributed_file_systems, data_placement, key_value_stores, lsm_trees ]
   numdates: 6
 
 - title: "Distributed Batch Processing"
@@ -21,7 +21,7 @@
   slides: [ dflang ]
   numdates: 5
 
-- title: "Distributed Transaction Processing, Consensus, and Consensus"
+- title: "Distributed Transaction Processing, Consensus, and Consistency"
   slides: [ oltp ]
   description: "We will learn about scalable distributed approaches for transaction processing and consistency including so called NewSQL systems."
   category: cc

@@ -5,27 +5,27 @@ title: Introduction to Distributed Computing
 
 <section data-markdown>
 	<textarea data-template>
-		# {{ site.data.course.title }} - {{ page.title }}
+# {{ site.data.course.title }} - {{ page.title }}
 
-		**Lecturer**: [Boris Glavic]({{ site.data.instructor.home }})
+**Lecturer**: [Boris Glavic]({{ site.data.instructor.home }})
 
-		**Semester**: {{ site.data.course.semester }} {{ site.data.course.year }}
+**Semester**: {{ site.data.course.semester }} {{ site.data.course.year }}
 
 	</textarea>
 </section>
 
 <section data-markdown>
   <textarea data-template>
-    # 1. Introduction
+# 1. Introduction
 
-    ## Distributed Computing (What / Why)
+## Distributed Computing (What / Why)
   </textarea>
 </section>
 
 
 <section data-markdown>
   <textarea data-template>
-	## What is distributed computing?
+## What is distributed computing?
 
 * Executing programs on a **cluster** of **machines** requiring **communication** among the machines of the cluster.
   </textarea>
@@ -44,7 +44,7 @@ title: Introduction to Distributed Computing
 
 <section data-markdown>
   <textarea data-template>
-	## Why Examples
+## Why Examples
 
 - **Data size**
   - Store the Facebook network graph with 100s of millions of users
@@ -55,7 +55,7 @@ title: Introduction to Distributed Computing
 
 <section data-markdown>
   <textarea data-template>
-	## What is horizontal scaling?
+## What is horizontal scaling?
 
 - **Scaling**: how is the runtime of a computational task is affected by the number of nodes we are running on?
 - Ideally:
@@ -66,9 +66,9 @@ title: Introduction to Distributed Computing
 
 <section data-markdown>
   <textarea data-template>
-    # 1. Introduction
+# 1. Introduction
 
-    ## Challenges Distributed Computing
+## Challenges Distributed Computing
   </textarea>
 </section>
 
@@ -97,7 +97,7 @@ title: Introduction to Distributed Computing
 
 <section data-markdown>
   <textarea data-template>
-	## The problem with *stragglers*
+## The problem with *stragglers*
 
 - Random events (OS noise, intermittent failures) cause nodes to slow down
 - Events that significantly affect performance are rare
@@ -107,7 +107,7 @@ title: Introduction to Distributed Computing
 
 <section data-markdown>
   <textarea data-template>
-	## Straggler Example
+## Straggler Example
 
 - $1000$ node cluster
 - each node has a $1\%$ chance of taking twice as slow than the expectation
@@ -198,7 +198,7 @@ title: Introduction to Distributed Computing
 
 <section data-markdown>
   <textarea data-template>
-	## CAP
+## CAP
 
 - **Consistency**: all nodes agree on global state
 - **Availability**: the system is available at all times
@@ -209,7 +209,7 @@ title: Introduction to Distributed Computing
 
 <section data-markdown>
   <textarea data-template>
-	## CAP Theorem
+## CAP Theorem
 
 - The CAP theorem states:
   - All three properties (CAP) cannot be guaranteed
@@ -219,7 +219,7 @@ title: Introduction to Distributed Computing
 
 <section data-markdown>
   <textarea data-template>
-	## CAP design space
+## CAP design space
 
 - **CA**: *consistent* and *available*
   - the system is always available and consistent, but cannot tolerate network partitions
@@ -232,7 +232,7 @@ title: Introduction to Distributed Computing
 
 <section data-markdown>
   <textarea data-template>
-	## Scalable algorithm design
+## Scalable algorithm design
 
 - **Easy example**
   - take an large array of integers and add a constant to each element
@@ -244,15 +244,15 @@ title: Introduction to Distributed Computing
 
 <section data-markdown>
   <textarea data-template>
-    # 1. Introduction
+# 1. Introduction
 
-    ## How to build distributed systems
+## How to build distributed systems
   </textarea>
 </section>
 
 <section data-markdown>
   <textarea data-template>
-	## Building distributed systems is hard
+## Building distributed systems is hard
 
 - **Many pitfalls**
   - Maintaining distributed state (consistency)
@@ -267,7 +267,7 @@ title: Introduction to Distributed Computing
 
 <section data-markdown>
   <textarea data-template>
-	## Distributed systems are hard to debug
+## Distributed systems are hard to debug
 
 - Non-determinism because of parallelism
    - *e.g., race conditions*
@@ -279,17 +279,31 @@ title: Introduction to Distributed Computing
 
 <section data-markdown>
   <textarea data-template>
-    # 1. Introduction
+# 1. Introduction
 
-    ## Why are big data systems successful?
+## Why are big data systems successful?
   </textarea>
 </section>
 
 <section data-markdown>
-  <textarea data-template>
-	## Transparency
+<textarea data-template>
+## Big Computations and Data
 
-- Hide the complexities of distributed computation from the user
+- **Data exceeds single node capacity**
+  - Social network graphs (billions of nodes)
+  - Google's index of the web (petabytes of data)
+  - Scientific applications (particle accelerators produce GBs of data / sec)
+- **Expensive computations**
+  - Find influential nodes in a large social network
+  - Analyze the clicklogs of all Amazon customers
+</textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Transparency
+
+- **Hide the complexities of distributed computation from the user**
 - **Examples**
    - **Distributed file systems**
      - Access the storage of a cluster of nodes as a single logical file system
@@ -297,3 +311,21 @@ title: Introduction to Distributed Computing
      - User expresses a computation as a simple program
   </textarea>
 </section>
+
+<section data-markdown>
+<textarea data-template>
+# 1. Introduction
+
+## Outlook
+
+- **2. Distributed Storage & NoSQL Databases**
+- **3. Distributed Batch Processing**
+- **4. High-level Dataflow & Query Languages**
+- **5. Distributed Transaction Processing, Consensus, and Consistency**
+- **6. Distributed Stream Processing & Publish-Subscribe**
+</textarea>
+</section>
+
+<!-- Local Variables: -->
+<!-- mode: markdown -->
+<!-- End: -->

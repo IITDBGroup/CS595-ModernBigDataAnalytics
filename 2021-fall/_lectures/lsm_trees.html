@@ -26,11 +26,25 @@ title: Storage - LSM-Trees
   <textarea data-template>
 ## Motivation
 
-- In this part of the lecture we will does an index structure called **LSM-trees**
-- This index structure is write optimized, i.e., provides high write throughput
-- For that range-query performance is sacrificed to some degree
+- We will discuss an index structure called **LSM-trees**
+- This index structure is **write optimized**, i.e., provides high write throughput
+- **range-query performance** is sacrificed to some degree
 - LSM-trees are used in most implementations of key-value stores
   </textarea>
+</section>
+
+
+<section data-markdown>
+<textarea data-template>
+## The History of LSM
+
+- LSM-tree were first proposed by O'Neil et al. in the 90s as a write-optimized index structure
+
+> The log-structured merge-tree (LSM-tree). Patrick O'Neil, Edward Cheng, Dieter Gawlick, Elizabeth O'Neil. Acta Informatica, 1996.
+
+- With the emergence of key-value stores (NoSQL) databases in the later 2000s, LSM-trees became widely deployed in real systems and optimizations were studied intensively in academia
+
+</textarea>
 </section>
 
 <section data-markdown>
@@ -43,3 +57,127 @@ title: Storage - LSM-Trees
 
 </textarea>
 </section>
+
+<section data-markdown>
+<textarea data-template>
+## LSM-trees
+
+- An LSM-tree is a data structure that indexes **key-value pairs**
+- **Supported operations**
+  - **insert** `(key, value)` - insert a new key-value pair into the index
+  - **update** `(key, value)` - set the value of `key` to be `value`
+  - **point query** `key` - find the value `value` associated with `key` (or indicate that `key` does not exist in the index)
+  - **range query** `[k1,k2]` - return all key-value pairs `(k,v)` such that $k \in [k1,k2]$
+  - **delete** `key` - delete `key` from the index
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## LSM-tree Concepts
+
+- LSM-tree are **write-optimized**
+- LSM-tree use **out-of-place update**
+  - instead of updating values of existing keys in-place, LSM-trees create a new entry on updates
+- LSM-trees consist of multiple **components**
+  - each component is some regular index structure (we discuss two typical choices in the following)
+  - not all components have to use the same type of index structure
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## LSM-tree Structure
+
+- LSM-trees organize components into **levels**
+  - the component(s) at the lowest level `L0` live in memory
+    - this is sometimes called a **memtable**
+    - the **memtable** is subject to a size limit $\mathcal{S}$
+  - components at lower levels are stored on disk and are **immutable**
+  - components at level $L_{i+1}$ are a factor $T$ (**size ratio**) times larger than components at level $L_i$
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Leveling Merge Policy
+
+- Each level has a single component
+- When a component at level $l$ reaches its size limit $\mathcal{S} \cdot T^{l}$, it is merged into the component at level $l+1$ creating a new component at level $l+1$ that replaces the old component at level $l+1$
+- A merge from level $l$ to level $l+1$ may cause the component at level $l+1$ to also overflow (reach its size limit)
+  - that is a merge may trigger further merges at lower levels
+- A common size ratio is $T=10$, i.e., the size limit for the component at level $l+1$ is $10$ times the size limit for the component at level $l$
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## LSM-tree Modification Operations
+
+- **memtable**
+  - all insert/update/delete operations are applied to the memtable
+  - when the **memtable** is full, it is merged into the disk-resident component at level `L1` and **new** empty memtable is created
+- **disk components**
+  - components at level $l > 0$ are stored on disk
+  - these components are immutable, i.e., not updated in place
+  - when such component is full, it is merged into the component at the next level
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Existence of Keys at Multiple Levels
+
+- A key $k$ may exist in more than one component with different values
+- This happens when a component containing the key is merged into
+- Because merging happens in increasing order of levels the following invariant holds:
+  - If a key exists at levels $l$ and $l' > l$ then the key-value pair at level $l$ is newer than the one on level $l'$
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Insert / Update Example
+
+- Let's consider $T=2$ and $\mathcal{S} = 3$ (up to three entries in the memtable)
+
+- **L0** (**memtable**): $[(k_1,v_1), (k_2,v_2), (k_3,v_3)]$
+- **L1**: $[(k_1, v_1)]$
+- **L2**:
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Delete Example
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Requirements for Components
+
+- components that live in memory should
+- components that live on disk need to support
+  -
+  -
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## SSTables
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Leveled vs. Tiered Design
+
+
+</textarea>
+</section>
+
+<!-- Local Variables: -->
+<!-- mode: markdown -->
+<!-- End: -->

@@ -1,6 +1,6 @@
 ---
 shortname: key_value_stores
-title: Storage - Key-Value Stores (NoSQL Databases)
+title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 ---
 
 <section data-markdown>
@@ -16,9 +16,51 @@ title: Storage - Key-Value Stores (NoSQL Databases)
 
 <section data-markdown>
   <textarea data-template>
-# Distributed Storage
+# 2. Distributed Storage
 ## {{ page.title }}
   </textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Distributed Key-Value Stores
+
+-
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## CRUD Operations
+
+- *C*: `create(key,value)` - associate `key` with `value`
+- *R*: `read(key)` - return `value` associated with `key`
+- *U*: `update(key,value)` - associated existing `key` with `value`
+- *D*: `delete(key)` - delete `key`
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+##
+</textarea>
+</section>
+
+
+<section data-markdown>
+<textarea data-template>
+## Point vs Range Queries
+
+- Consider index storing key and values `{(k,v)}`
+- **point-query**: given a key `k` return the associated value `v`
+- **range-query**: given a range of keys `[k1,k2]` return all key-value pairs `(k,v)` such that $k \in [k1,k2]$
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Example
+</textarea>
 </section>
 
 <!-- Local Variables: -->
