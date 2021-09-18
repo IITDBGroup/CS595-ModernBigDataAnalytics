@@ -5,26 +5,26 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
 	<textarea data-template>
-		# {{ site.data.course.title }} - {{ page.title }}
+# {{ site.data.course.title }} - {{ page.title }}
 
-		**Lecturer**: [Boris Glavic]({{ site.data.instructor.home }})
+**Lecturer**: [Boris Glavic]({{ site.data.instructor.home }})
 
-		**Semester**: {{ site.data.course.semester }} {{ site.data.course.year }}
+**Semester**: {{ site.data.course.semester }} {{ site.data.course.year }}
 
 	</textarea>
 </section>
 
 <section data-markdown>
   <textarea data-template>
-    # 2. Distributed Storage
+# 2. Distributed Storage
 
-    ## Distributed File Systems
+## Distributed File Systems
   </textarea>
 </section>
 
 <section data-markdown>
   <textarea data-template>
-	## Distributed File System
+## Distributed File System
 
 - Store files in a cluster of machines
 - Manage **meta-data** (file-system structure, permissions, ...) and **data** (file content)
@@ -38,7 +38,7 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## Requirements
+## Requirements
 
 - Support files larger than storage of a single machine
 - **Fault Tolerance**
@@ -51,7 +51,7 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## Requirements cont.
+## Requirements cont.
 
 - **Load balancing**
   - Distribute file system operations across the cluster
@@ -74,7 +74,7 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## Replication
+## Replication
 
 - Each piece of data is replicated across $m$ nodes
 - How to choose number of replicas?
@@ -85,7 +85,7 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## How to chooose the number of replicas?
+## How to chooose the number of replicas?
 
 - Larger $m$
     - Wasting storage
@@ -100,7 +100,7 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## Characteristics of Replication
+## Characteristics of Replication
 
 - **Read performance**
     - If all replicas are kept up to sync, then we can read from multiple replicas in parallel
@@ -112,7 +112,7 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## Characteristics of Replication cont.
+## Characteristics of Replication cont.
 
 - **Write performance**
     - Have to write to all replicas
@@ -124,7 +124,7 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## Fault tolerance - Network issues
+## Fault tolerance - Network issues
 
 - Replication can help too
 - Need to be aware of network infrastructure
@@ -134,7 +134,7 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## Data Placement
+## Data Placement
 
 - How to balance data distribution across a cluster?
 - At a file level?
@@ -147,7 +147,7 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## Data Placement cont.
+## Data Placement cont.
 
 - How to determine which block goes where?
 - e.g., hash function
@@ -158,7 +158,7 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## Meta-data Management
+## Meta-data Management
 
 - **Dedicated nodes for meta-data management**
   - A subsets of $m < n$ nodes in the cluster handle metadata management
@@ -169,7 +169,7 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## Consistency
+## Consistency
 
 - Allow full parallel access to files for random reads and writes
     - Readers and writers need to synchronized for all operations
@@ -180,7 +180,7 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## Consistency
+## Consistency
 
 - Limit file operations and/or restricting concurrent access
     - e.g., append-only or no modification after creation
@@ -204,7 +204,7 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## HDFS
+## HDFS
 
 - Open-source distributed file system
 - Modelled after Google's Distributed Filesystem (GFS)
@@ -215,7 +215,7 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## File System Structure
+## File System Structure
 
 - An HDFS file system is made of inodes (directories or files) which have associated metadata (e.g., permissions)
 - Files consist of one or more blocks
@@ -229,7 +229,7 @@ title: Storage - Distributed File Systems
 
 <section data-markdown>
   <textarea data-template>
-	## Architecture
+## Architecture
 
 - **Name node**
   - stores filesystem meta-data
@@ -402,3 +402,7 @@ title: Storage - Distributed File Systems
   - No semantic data placement (more on this later)
 </textarea>
 </section>
+
+<!-- Local Variables: -->
+<!-- mode: markdown -->
+<!-- End: -->
