@@ -23,11 +23,99 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 
 <section data-markdown>
 <textarea data-template>
-## Distributed Key-Value Stores
+## Distributed NoSQL Databases
 
+|             | Relational database    | NoSQL store                                             |
+|-------------|------------------------|---------------------------------------------------------|
+| Data model  | relational model       | Key-value, documents, graphs                            |
+| Consistency | Serializability (ACID) | no transactions, typically eventually consistent (BASE) |
+| Queries     | SQL                    | CRUD                                                    |
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Types of NoSQL Databases
+
+- **Key-value** - sets of key-value pairs
+  - some systems support an ordered key domain
+- **Wide column** - relational or nested relational
+  - can be seen as extension of key-value where we impose more structure on the values
+- **Document** - semi-structured data like JSON or XML
+- **Graph** - graph (nodes and edges)
+  - common model are property graphs or RDF graphs
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Examples
+
+- **Key-value**
+  - Amazon DynamoDB, Redis
+- **Wide column**
+  - Big table, Cassandra
+- **Document**
+  - MongoDB, Couchbase
+- **Graph**
+  - Neo4J, AllegroGraph
+
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## BASE (Consistency)
+
+- most distributed NoSQL databases sacrifice **consistency** for
+  - low latency of operations
+  - availability under node failures and network partitions
+
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## BASE (Consistency)
+
+- **BASE** = Basically Available, Soft state, Eventual consistency
+- **Basically Available**: the system is available even under failures like network partitions
+- **Soft state**: data may be changing even if no updates happen (caused by eventual consistency)
+- **Eventually consistency**: any update to the data will eventually be observed by all replicas
+</textarea>
+</section>
+
+
+<section data-markdown>
+<textarea data-template>
+## Eventual consistency
+
+- **Informally**: If no updates are applied to a data item, then all accesses to that data item will eventually start to return the same value
+- For system using replication, clients can read from any replica
+  - eventually all replicas converge on same state
+- More details later when talking about consistency, consensus and distributed transaction processing
+</textarea>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+## {{ page.title }}
+### Key-value Stores
+  </textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Data Model
+
+- Data is stores as sets of key-value pairs
+- Typically the systems treat keys and values as uninterpreted sequences of bytes
+   - applications can interpret them as they please
 -
 </textarea>
 </section>
+
 
 <section data-markdown>
 <textarea data-template>
@@ -42,13 +130,6 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 
 <section data-markdown>
 <textarea data-template>
-##
-</textarea>
-</section>
-
-
-<section data-markdown>
-<textarea data-template>
 ## Point vs Range Queries
 
 - Consider index storing key and values `{(k,v)}`
@@ -60,8 +141,39 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 <section data-markdown>
 <textarea data-template>
 ## Example
+
+- **input data**: `{ (34, Peter), (56, Bob), (46, Alice) }`
+- **point query**:
+  - `get(34)` -> `(34,Peter)`
+- **range query**:
+  - `range(30,50)` -> `{ (34,Peter), (46, Alice) }`
 </textarea>
 </section>
+
+<section data-markdown>
+<textarea data-template>
+## {{ page.title }}
+### Document Stores
+</textarea>
+</section>
+
+
+<section data-markdown>
+<textarea data-template>
+## {{ page.title }}
+### Wide column Stores
+</textarea>
+</section>
+
+
+<section data-markdown>
+<textarea data-template>
+## {{ page.title }}
+### Graph Databases
+</textarea>
+</section>
+
+
 
 <!-- Local Variables: -->
 <!-- mode: markdown -->
