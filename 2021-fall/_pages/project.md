@@ -49,7 +49,7 @@ Data provenance is information about how a piece of data was derived from input 
 
 ### Add Support for Uncertain Order-aware Queries To Spark (1-2 students)
 
-[Uncertainty-annotated databases](http://www.cs.iit.edu/~dbgroup/projects/ua-db.html) are a light-weight framework for dealing with uncertainty (e.g., missing values) in data which has been implemented on-top of Spark. In this project you will extend this implementation to support new types of queries, specifically queries that order data such as `ORDER BY ... LIMIT` queries and windowed aggregation queries.
+[Uncertainty-annotated databases](http://www.cs.iit.edu/~dbgroup/projects/ua-db.html) are a light-weight framework for dealing with uncertainty (e.g., missing values) in data which has been implemented on-top of Spark. In this project you will extend this implementation to support new types of queries, specifically queries that order data such as `ORDER BY ... LIMIT`{:.sql} queries and windowed aggregation queries.
 
 ### Implement Provenance-based Data Skipping on Spark (1-3 students)
 
@@ -62,5 +62,3 @@ Database can exploit materialized views to answer queries more efficiently. This
 ### Add support for Implementing Updates as Queries to Spark (1-2 students)
 
 Currently, Spark does not support update operations. In this project you will implement support for update operations in Spark's DataFrame API. This could be either implemented by translating the updates into equivalent queries or by implementing physical update operations (more challenging).
-
-###
