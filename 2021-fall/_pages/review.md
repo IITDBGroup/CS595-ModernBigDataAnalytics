@@ -44,13 +44,13 @@ How to write a scientific article:
 # Presentation Schedule
 
 | Student   | Paper                                                                                                   | Presentation Date |
-|-----------+---------------------------------------------------------------------------------------------------------+-------------------|
+|-----------|---------------------------------------------------------------------------------------------------------|-------------------|
 | Sharma    | The Google file system                                                                                  | 10/05/21          |
 | Waghela   | Dynamo: Amazon's highly available key-value store                                                       | 10/05/21          |
 | Patel     | Cassandra: a decentralized structured storage system                                                    | 10/07/21          |
 | Rizvi     | Apache flink: Stream and batch processing in a single engine                                            | 10/07/21          |
 | Singh     | Skipping-oriented partitioning for columnar layouts                                                     | 10/12/21          |
-| Xie       | Milvus: A Purpose-Built Vector Data Management System                                                   | 10/12/21          |
+| Xie       | Big Data Analytics over Encrypted Datasets with Seabed                                                  | 10/12/21          |
 | Campbell  | Incremental, Iterative Data Processing With Timely Dataflow                                             | 10/14/21          |
 | Cornelius | Tracing nested data with structural provenance for big data analytics                                   | 10/19/21          |
 | Mohammed  | Apache Calcite: A Foundational Framework for Optimized Query Processing Over Heterogeneous Data Sources | 10/19/21          |

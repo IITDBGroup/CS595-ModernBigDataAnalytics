@@ -23,7 +23,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <link rel="stylesheet" href="{{ "/assets/js/reveal.js/css/reveal.css" | prepend: site.baseurl }}"/>
     {%if page.theme %}
@@ -31,6 +31,8 @@
     {% else %}
       <link rel="stylesheet" href="{{ "/assets/js/reveal.js/css/theme/white.css" | prepend: site.baseurl }}" id="theme"/>
     {% endif %}
+
+    <link rel="stylesheet" href="{{ "/assets/css/extra.css" | prepend: site.baseurl }}"></script>
 
     <!-- Code syntax highlighting -->
     <link rel="stylesheet" href="{{ "/assets/js/reveal.js/lib/css/zenburn.css" | prepend: site.baseurl }}"/>
@@ -61,6 +63,7 @@
       </div>
     </div>
 
+
     <script src="{{ "/assets/js/reveal.js/lib/js/head.min.js" | prepend: site.baseurl }}"></script>
     <script src="{{ "/assets/js/reveal.js/js/reveal.js" | prepend: site.baseurl }}"></script>
     <script>
@@ -70,8 +73,12 @@
         controls: true,
         progress: true,
         history: true,
-        center: true,
-        slideNumber: true,
+          center: false,
+          rollingLinks: false,
+          hashOneBasedIndex: false,
+        slideNumber: 'c/t',
+        width: "100%",
+        height: "100%",
 
         {%if page.transition %}
           transition: '{{page.transition}}',

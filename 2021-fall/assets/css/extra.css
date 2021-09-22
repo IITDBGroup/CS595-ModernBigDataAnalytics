@@ -1,0 +1,93 @@
+.reveal th {
+    font-weight   : bold;
+    text-align    : left;
+    padding       : 0.1em 0.5em 0.1em 0.5em; /*top right bottom left */
+    border-top    : 0px solid transparent;
+    border-right  : 0px solid transparent;
+    border-bottom : 0px solid transparent;
+    border-left   : 0px solid transparent;
+	background-color: #000000;
+	color: white;
+}
+
+.reveal table td {
+    border-bottom : 1px solid transparent;
+}
+
+.reveal td {
+    text-align: left;
+    padding: 0.1em 0.5em 0.1em 0.5em; /*top right bottom left */
+    border-top    : 1px solid transparent;
+    border-right  : 3px solid;
+    border-bottom : 0px solid transparent !important;
+    border-left   : 3px solid;
+}
+
+.reveal table {
+    margin: auto;
+    border-collapse: collapse;
+    border: 0;
+    border-top: 3px solid;
+    border-bottom: 3px solid;
+	border-left: 3px solid;
+	border-right: 3px solid;
+    border-spacing: 0;
+}
+
+.org-ref-bib {
+	bottom: 0px;
+	overflow-y: auto !important;
+	overflow-x: hidden !important;
+	display: inherit !important;
+	height: 400pt !important;
+}
+
+.slide-footer {
+    position: fixed;
+    left: 60px;
+    bottom: 1px;
+}
+
+h1.title {
+    padding: 0.5em 0em 0.5em 0em;
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+
+.author {
+    padding: 1em 0em 0em 0em !important;
+    color: black !important;
+    background-color: transparent !important;
+}
+
+h2.email {
+    padding: 0em 0em 0em 0em !important;
+    font-size-adjust: 0.4;
+    background-color: transparent !important;
+}
+
+p.date {
+    font-style: italic;
+}
+
+.reveal h1 {
+    padding: 0.5em 0em 0.5em 0em;
+    color: white;
+    background-color: black;
+    text-align: center;
+}
+
+.reveal h2 {
+    padding: 0.5em 0em 0.5em 0em;
+    color: white;
+    background-color: black;
+    text-align: center;
+}
+
+.reveal h3 {
+    padding: 0.5em 0em 0.5em 1em;
+    color: white;
+    background-color: black;
+    text-align: left;
+}

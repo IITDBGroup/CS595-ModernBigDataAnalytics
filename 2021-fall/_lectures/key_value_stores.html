@@ -3,7 +3,7 @@ shortname: key_value_stores
 title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 ---
 
-<section data-markdown>
+<section data-markdown data-background="{{ "/assets/images/dbgrouplogo.png" | prepend: site.baseurl }}" data-background-size="250px" data-background-position="right 5% bottom 15%">
 	<textarea data-template>
 # {{ site.data.course.title }} - {{ page.title }}
 
@@ -91,12 +91,32 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 ## Eventual consistency
 
 - **Informally**: If no updates are applied to a data item, then all accesses to that data item will eventually start to return the same value
-- For system using replication, clients can read from any replica
+- For systems using replication + clients can read from any replica
   - eventually all replicas converge on same state
 - More details later when talking about consistency, consensus and distributed transaction processing
 </textarea>
 </section>
 
+<section data-markdown>
+<textarea data-template>
+## CRUD Operations
+
+- *C*: `create(key,value)` - associate `key` with `value`
+- *R*: `read(key)` - return `value` associated with `key`
+- *U*: `update(key,value)` - associated existing `key` with `value`
+- *D*: `delete(key)` - delete `key`
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## CRUD Operations
+
+- **Main take-aways:**
+  - simpler query model (compared to fully-fledged query languages)
+  - no transactions that combine multiple operations into an atomic action
+</textarea>
+</section>
 
 <section data-markdown>
   <textarea data-template>
@@ -112,19 +132,6 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 - Data is stores as sets of key-value pairs
 - Typically the systems treat keys and values as uninterpreted sequences of bytes
    - applications can interpret them as they please
--
-</textarea>
-</section>
-
-
-<section data-markdown>
-<textarea data-template>
-## CRUD Operations
-
-- *C*: `create(key,value)` - associate `key` with `value`
-- *R*: `read(key)` - return `value` associated with `key`
-- *U*: `update(key,value)` - associated existing `key` with `value`
-- *D*: `delete(key)` - delete `key`
 </textarea>
 </section>
 
@@ -149,6 +156,9 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
   - `range(30,50)` -> `{ (34,Peter), (46, Alice) }`
 </textarea>
 </section>
+
+
+
 
 <section data-markdown>
 <textarea data-template>
