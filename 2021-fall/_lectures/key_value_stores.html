@@ -35,7 +35,7 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 
 <section data-markdown>
 <textarea data-template>
-## Types of NoSQL Databases
+## Types of NoSQL Data Models
 
 - **Key-value** - sets of key-value pairs
   - some systems support an ordered key domain
@@ -52,7 +52,7 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 ## Examples
 
 - **Key-value**
-  - Amazon DynamoDB, Redis
+  - Amazon Dynamo, Redis
 - **Wide column**
   - Big table, Cassandra
 - **Document**
@@ -62,6 +62,17 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 
 </textarea>
 </section>
+
+<section data-markdown>
+<textarea data-template>
+## Common Themes
+
+- The NoSQL movement was born out of a need for **scalable** storage of structured data with high **availability** and often low **latency** requirements
+- Often availability and low latency are achieved at the cost of consistency (and potentially expressiveness of queries)
+- To ensure scalability, some systems restrict operations (e.g., no transactions) such that they can be executed without requiring cluster-wide communication
+</textarea>
+</section>
+
 
 <section data-markdown>
 <textarea data-template>
@@ -129,7 +140,7 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 <textarea data-template>
 ## Data Model
 
-- Data is stores as sets of key-value pairs
+- Data is stored as sets of key-value pairs
 - Typically the systems treat keys and values as uninterpreted sequences of bytes
    - applications can interpret them as they please
 </textarea>
@@ -159,7 +170,6 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 
 
 
-
 <section data-markdown>
 <textarea data-template>
 ## {{ page.title }}
@@ -167,6 +177,45 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 </textarea>
 </section>
 
+<section data-markdown>
+<textarea data-template>
+## Data Model
+
+- semi-structure data, e.g., `JSON` (Javascript object notation)
+- types:
+  - arrays `[]`
+  - maps (objects) `{ field1: value, ...}`
+  - primitive types
+
+```json
+[
+    {
+        "Name": "Peter",
+        "Age": 15,
+        "Addresses": [
+            {
+                "City": "Chicago",
+                "Zip": 60616,
+                "Street": "10 W 31st"
+            },
+            {
+                "City": "Chicago",
+                "Zip": 60614
+            }
+        ]
+    }
+]
+```
+
+</textarea>
+</section>
+
+
+<section data-markdown>
+<textarea data-template>
+## Query Model
+</textarea>
+</section>
 
 <section data-markdown>
 <textarea data-template>
@@ -175,6 +224,24 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 </textarea>
 </section>
 
+<section data-markdown>
+<textarea data-template>
+## Data Model
+
+- typically nested relational
+- requiring every relation to have a key
+  - this is key-values with more semantics for values!
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Query Model
+
+- point queries and range-queries
+- possibly allowing queries over non-key columns (not supported by most key-value stores)
+</textarea>
+</section>
 
 <section data-markdown>
 <textarea data-template>
@@ -182,6 +249,212 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 ### Graph Databases
 </textarea>
 </section>
+
+<section data-markdown>
+<textarea data-template>
+## Data Models
+
+- **Property graphs**:
+  - directed graph of nodes and edged
+    - both nodes and edges (relationships) have a type (often called labels)
+  - nodes and edges can have properties (fields)
+- **RDF (Resource Description Framework**
+  - Data is represented as triples: `(object,predicate,subject)`
+  - uses URIs to represent entities (e.g., object,
+  - Can also be interpreted as a graph where object and subjects are nodes and predicates are edges connecting them
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Example - Property graphs
+
+- On the next slide we see an example property graph
+- Two types of nodes:
+  - **Persons** with `name` and `age`
+  - **Companies** with their `name` and `headquarters`
+- Types of edges:
+  - **married to**: person to person
+  - **child of**: person to person
+  - **reports to**: person to person
+  - **works for**: person to company
+</textarea>
+</section>
+
+<section>
+{% graphviz %}
+digraph G {
+
+node[shape=rectangle,style="filled,rounded", fillcolor="lightcyan", color=black];
+rankdir="LR";
+
+   subgraph cluster_0 {
+        rankdir="TB";
+		style="filled,rounded";
+        fillcolor=wheat1;
+		node [shape=rectangle,style="filled,rounded",fillcolor="lightcyan",color=black];
+        n1[label="name:Peter"];
+        a1[label="age:35"];
+		label = "Person";
+	}
+
+   subgraph cluster_1 {
+        rankdir="TB";
+		style="filled,rounded";
+        fillcolor=wheat1;
+		node [shape=rectangle,style="filled,rounded",fillcolor="lightcyan",color=black];
+        n2[label="name:Alice"];
+        a2[label="age:36"];
+		label = "Person";
+	}
+
+
+  subgraph cluster_2 {
+        rankdir="TB";
+		style="filled,rounded";
+        fillcolor=wheat1;
+		node [shape=rectangle,style="filled,rounded",fillcolor="lightcyan",color=black];
+        n3[label="name:Bob"];
+        a3[label="age:55"];
+		label = "Person";
+	}
+
+  subgraph cluster_3 {
+        rankdir="TB";
+		style="filled,rounded";
+        fillcolor=wheat1;
+		node [shape=rectangle,style="filled,rounded",fillcolor="lightcyan",color=black];
+        n4[label="name:George"];
+        a4[label="age:25"];
+		label = "Person";
+	}
+
+  subgraph cluster_4 {
+        rankdir="TB";
+		style="filled,rounded";
+        fillcolor=wheat1;
+		node [shape=rectangle,style="filled,rounded",fillcolor="lightcyan",color=black];
+        n5[label="name:IBM"];
+        h5[label="headquarters:California"];
+		label = "Company";
+	}
+
+    n1 -> n2 [ label="married to" ];
+    n1 -> n3 [ label="reports to" ];
+    n2 -> n3 [ label="child of" ];
+    n3 -> n4 [ label="reports to" ];
+    n2 -> n5 [ label="works for" ];
+    n3 -> n5 [ label="works for" ];
+    n4 -> n5 [ label="works for" ];
+}
+{% endgraphviz %}
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Example - RDF
+
+-
+
+</textarea>
+</section>
+
+<section>
+{% graphviz %}
+digraph G {
+
+node[shape=rectangle,style="filled,rounded", fillcolor="wheat1", color=black];
+rankdir="LR";
+
+p1[label="P1"];
+p2[label="P2"];
+p3[label="P3"];
+person[label="Person"];
+ibm[label="IBM"];
+p1n[label="Alice"];
+p2n[label="Bob"];
+p3n[label="Peter"];
+
+p1 -> person [label="is-a"];
+p2 -> person [label="is-a"];
+p3 -> person [label="is-a"];
+
+p1 -> p1n [label="hasName"];
+p2 -> p2n [label="hasName"];
+p3 -> p3n [label="hasName"];
+
+p1 -> p3 [ label="married to" ];
+p3 -> n2 [ label="reports to" ];
+p1 -> p2 [ label="child of" ];
+p2 -> ibm [ label="works for" ];
+p3 -> ibm [ label="works for" ];
+}
+{% endgraphviz %}
+</section>
+
+
+<section data-markdown>
+<textarea data-template>
+## Query Model
+
+- Declarative graph query languages
+- Examples
+  - **Cypher** - for property graphs
+    - e.g., supported by Neo4J
+  - **SPARQL**
+    - for RDF
+    - supported by many systems
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Cypher
+
+- query language for property graphs: [https://neo4j.com/developer/cypher/](Neo4j Cypher tutorial)
+- syntax inspired by SQL and SPARQL
+- based on patterns that describe what subgraphs are of interest and bind nodes and edges to variables
+- *example*: *return the name of persons working for IBM*
+```cypher
+MATCH (p:Person)-[:works for]->(c:Company)
+WHERE c:name = 'IBM'
+RETURN p:name
+```
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## SPARQL
+
+
+</textarea>
+</section>
+
+
+<section data-markdown>
+<textarea data-template>
+## {{ page.title }}
+### Foundational Techniques and Algorithms
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Foundational Techniques and Concepts
+
+- Systems differ widely in what performance characteristics, operations, and what guarantees they provide
+- Technically, NoSQL Databases combine techniques from the systems, distributed computing, and database communities
+- We will discuss several foundational techniques and algorithms in the following:
+  - **LSM-trees**: An LSM-tree is a write-optimized index structure that is applied by many key-value and wide column store systems. Because writes to disk are sequential in LSM-trees, these data structures work well with distributed file systems like HDFS that only allow appending writes.
+  - **Distributed Hash Tables (DHT)**: A distributed hash table is a distributed, fault tolerant and load-balancing implementation of a map data structure
+    - **Consistent Hashing**: the technique used by many DHTs to distribute data without requiring complete reorganization when nodes leave or enter the system
+    - **Overlay Network**: an overlay network is a virtual network on top of a physical network. They are used by DHTs for routing requests
+  - **Eventual Consistency**: A weaker form of consistency applied by many key-value
+  - **Vector Clocks/Version Vectors**: A mechanism for reasoning about the causal ordering of events in a distributed system
+</textarea>
+</section>
+
 
 
 

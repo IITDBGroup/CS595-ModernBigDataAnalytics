@@ -239,6 +239,140 @@ title: Storage - Data Placement
 </textarea>
 </section>
 
+<section data-markdown>
+<textarea data-template>
+## Balancing Storage Load
+
+- Do these partitioning methods provide any balancing of storage load?
+- **Vertical partitioning**
+  - each node gets the same number of rows
+  - column values may be different sizes though
+  - coarse-grained partitioning, e.g., number of nodes > number of columns
+- **Hash partitioning**
+  - "good" hash functions lead to an even distribution of data
+  - the chance that there is a big imbalance is neglectable for large enough datasets
+  - **skew**: when a single value is repeated many times then an large fraction of the data will end up on one node
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Example Skew
+
+
+- consider hash partitioning on `Author` for 100 nodes
+
+| Author        | Tweet                | node |
+|:--------------|:---------------------|------|
+| Famous Person | My new movie         | 0    |
+| Famous Person | Eating something     | 0    |
+| Famous Person | Hello                | 0    |
+| Famous Person | Goodbye              | 0    |
+| Pete Nobody   | My vacation: ...     | 1    |
+| Alice Nobody  | Tips for travel, ... | 3    |
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Balancing Storage Load (cont.)
+
+- **Range partitioning**
+  - selection of ranges determines distribution of storage load
+  - how to determine ranges that lead to a good distribution of load?
+  - still same problem with skew
+  - even if we partition data perfectly, imbalance can result if data distribution changes over time
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Equi-depth vs. Equi-width Partitioning
+
+- Two common methods for range partitioning are:
+  - **equi-width**: divide the domain of partition attribute into ranges with equal number of values
+  - **equi-depth**: decide ranges such that each range covers (roughly) the same amount of data
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Computing Equi-width Partitions
+
+- to generate an **equi-depth partition** with `n` fragments of a relation on attribute `A` do:
+  - compute `min(A)` and `max(A)` (requires one scan over the data)
+  - create ranges by dividing `[min(A),max(A)]` into $n$ fragments $f_i$:
+
+    $f_i = [min(A) + \frac{(max(A) + 1 - min(A)) \cdot (i-1)}{n}, min(A) + \frac{(max(A) +1 - min(A)) \cdot i}{n} - 1]$
+
+- can apply sampling to speed this up (at loss of accuracy)
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Equi-width Partitioning Example
+
+- partition on `Salary` with `3` fragments
+- `min(Salary) = 50, max(Salary) = 650`
+- fragments:
+$
+\{ [50,249], [250,449], [450,650] \}
+$
+
+| Name    | Salary |
+|:--------|--------|
+| Peter   |    100 |
+| Bob     |    170 |
+| Alice   |     50 |
+| Moon    |    150 |
+| Gertrud |    450 |
+| Joe     |    650 |
+
+
+</textarea>
+</section>
+
+
+<section data-markdown>
+<textarea data-template>
+## Computing Equi-depth Partitions
+
+- To generate an **equi-width partition** of relation `R` with `n` fragments on attribute `A` do:
+  - Sort `R` on `A` and compute $|R|$
+  - Scan through the sorted data and create a range based on the `A` value at $\frac{|R| \cdot (i-1)}{n}$ and $\frac{|R| \cdot i}{n}$
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Equi-depth Partitioning Example
+
+- Partition on `Salary` with `3` fragments
+- Sort table on `A`, determine ranges based on each 2 consecutive tuples
+- Fragments: $\{ [50,149], [150,449], [450,650] \}$
+
+| Name      |   Salary |
+| :-------- | :------- |
+| Alice     |       50 |
+| Peter     |      100 |
+| Moon      |      150 |
+| Bob       |      170 |
+| Gertrud   |      450 |
+| Joe       |      650 |
+
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Equi-depth vs. Equi-width Partitioning
+
+- Equi-depth partitioning is more expensive (sort vs. scan)
+- Equi-depth partitioning is better if data is not evenly distributed
+  - each fragment gets the same amount of data (unless there is skew)
+</textarea>
+</section>
 
 <section data-markdown>
 <textarea data-template>
