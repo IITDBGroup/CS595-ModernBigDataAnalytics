@@ -214,6 +214,17 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 <section data-markdown>
 <textarea data-template>
 ## Query Model
+
+- either only CRUD or declarative query language
+- one example is MQL, MongoDB's query language for JSON documents
+- *example*: find persons living in Chicago
+
+```mongo
+db.persons.find( { "Addresses": { "City": "Chicago" } } )
+```
+
+- for some more examples see: [here](https://github.com/IITDBGroup/CS595-repository/blob/master/mongodb.org)
+
 </textarea>
 </section>
 
@@ -258,9 +269,9 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
   - directed graph of nodes and edged
     - both nodes and edges (relationships) have a type (often called labels)
   - nodes and edges can have properties (fields)
-- **RDF (Resource Description Framework**
+- **RDF (Resource Description Framework)**
   - Data is represented as triples: `(object,predicate,subject)`
-  - uses URIs to represent entities (e.g., object,
+  - uses URIs to represent entities (e.g., objects)
   - Can also be interpreted as a graph where object and subjects are nodes and predicates are edges connecting them
 </textarea>
 </section>
@@ -270,6 +281,7 @@ title: Storage - Distributed Key-Value Stores (NoSQL Databases)
 ## Example - Property graphs
 
 - On the next slide we see an example property graph
+- For more examples see: [here](https://github.com/IITDBGroup/CS595-repository/blob/master/neo4j-cypher.org)
 - Two types of nodes:
   - **Persons** with `name` and `age`
   - **Companies** with their `name` and `headquarters`
@@ -354,8 +366,11 @@ rankdir="LR";
 <textarea data-template>
 ## Example - RDF
 
--
-
+- We revisit our person example, but with a slightly different instance
+- **predicates**
+  - all relationships from the previous example
+  - `is-a`
+  - `hasName`
 </textarea>
 </section>
 
@@ -411,7 +426,7 @@ p3 -> ibm [ label="works for" ];
 <textarea data-template>
 ## Cypher
 
-- query language for property graphs: [https://neo4j.com/developer/cypher/](Neo4j Cypher tutorial)
+- query language for property graphs: [Neo4J Cypher Tutorial](https://neo4j.com/developer/cypher/)
 - syntax inspired by SQL and SPARQL
 - based on patterns that describe what subgraphs are of interest and bind nodes and edges to variables
 - *example*: *return the name of persons working for IBM*
@@ -427,7 +442,11 @@ RETURN p:name
 <textarea data-template>
 ## SPARQL
 
-
+- SPARQL is a query language for RDF data
+- It's syntax bears some similarity with SQL
+- Queries consist of graph patterns that are matched against an RDF graph
+```sparql
+```
 </textarea>
 </section>
 

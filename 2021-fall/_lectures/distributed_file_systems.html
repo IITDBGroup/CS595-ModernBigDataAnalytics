@@ -79,7 +79,7 @@ title: Storage - Distributed File Systems
 - Each piece of data is replicated across $m$ nodes
 - How to choose number of replicas?
 - How to keep replicas in sync (consistency)?
-- How to detect missing replicate and compensate for that?
+- How to detect missing replicas and compensate for that?
   </textarea>
 </section>
 
@@ -89,7 +89,7 @@ title: Storage - Distributed File Systems
 
 - Larger $m$
     - Wasting storage
-    - Decrease chance of data loss
+    - Decreased chance of data loss
 - Smaller $m$
     - Less wasted storage
     - Higher chance of data loss
@@ -138,7 +138,7 @@ title: Storage - Distributed File Systems
 
 - How to balance data distribution across a cluster?
 - At a file level?
-  - High computational complexity
+  - High computational complexity (NP-hard)
 - Split files into blocks
   - Distribute individual blocks
   - What is a good block size?
@@ -151,7 +151,7 @@ title: Storage - Distributed File Systems
 
 - How to determine which block goes where?
 - e.g., hash function
-  - if number of blocks is large enough that almost guarantees even distribution
+  - if number of blocks is large enough that almost guarantees even distribution for the right choice of hash functions
   </textarea>
 </section>
 
@@ -172,9 +172,10 @@ title: Storage - Distributed File Systems
 ## Consistency
 
 - Allow full parallel access to files for random reads and writes
-    - Readers and writers need to synchronized for all operations
+    - Readers and writers need to synchronize for all operations
+      - or a weaker consistency model, e.g., eventual consistency, has to be applied
     - Essentially same problems as in transaction processing
-    - => Flexible, but requires complicated and expensive strong consistency
+        - => Flexible, but requires complicated and expensive strong consistency
   </textarea>
 </section>
 
@@ -184,7 +185,7 @@ title: Storage - Distributed File Systems
 
 - Limit file operations and/or restricting concurrent access
     - e.g., append-only or no modification after creation
-    - only one writer
+    - only one writer per file at a time
   </textarea>
 </section>
 
@@ -217,8 +218,8 @@ title: Storage - Distributed File Systems
   <textarea data-template>
 ## File System Structure
 
-- An HDFS file system is made of inodes (directories or files) which have associated metadata (e.g., permissions)
-- Files consist of one or more blocks
+- An HDFS file system is made of **inodes** (directories or files) which have associated **metadata** (e.g., permissions)
+- Files consist of one or more **blocks**
     - The block size is much larger than on single node file systems (e.g., 128MB)
 - Some blocks may be smaller than the block size
     - *200MB file: 128MB + 72MB block*
@@ -232,7 +233,7 @@ title: Storage - Distributed File Systems
 ## Architecture
 
 - **Name node**
-  - stores filesystem meta-data
+  - node in the cluster responsible for storing filesystem meta-data
     - directory structure
     - inode metadata (permissions, ...)
     - which blocks belong to which files
@@ -251,15 +252,149 @@ title: Storage - Distributed File Systems
   </textarea>
 </section>
 
+<section>
+{% graphviz %}
+digraph G {
+
+node[shape=rectangle,style="filled,rounded", fillcolor="lightcyan", color=black];
+rankdir="TB";
+newrank=true;
+
+   subgraph cluster_0 {
+        rank=same;
+		style="filled,rounded";
+        fillcolor=wheat1;
+		node [shape=rectangle,style="filled,rounded",fillcolor="darkolivegreen2",color=black];
+        f2[label="File2: B3"];
+        f1[label="File1: B1, B2"];
+        fontname="times-bold";
+		label = "Name Node";
+	}
+
+   subgraph cluster_1 {
+        rank=same;
+		style="filled,rounded";
+        fillcolor=wheat1;
+		node [shape=rectangle,style="filled,rounded",fillcolor="darkolivegreen2",color=black];
+        b12[label="Block 2"];
+        b11[label="Block 1"];
+        fontname="times-bold";
+		label = "Data Node";
+	}
+
+  subgraph cluster_2 {
+        rank=same;
+		style="filled,rounded";
+        fillcolor=wheat1;
+		node [shape=rectangle,style="filled,rounded",fillcolor="darkolivegreen2",color=black];
+        b23[label="Block 3"];
+        b21[label="Block 1"];
+        fontname="times-bold";
+		label = "Data Node";
+	}
+
+  subgraph cluster_3 {
+        rank=same;
+		style="filled,rounded";
+        fillcolor=wheat1;
+		node [shape=rectangle,style="filled,rounded",fillcolor="darkolivegreen2",color=black];
+        b33[label="Block 3"];
+        b32[label="Block 2"];
+        fontname="times-bold";
+		label = "Data Node";
+	}
+
+    f1 -> b11 [style=invis];
+    b21 -> b32 [style=invis];
+
+}
+{% endgraphviz %}
+</section>
+
 <section data-markdown>
   <textarea data-template>
 ## Fault tolerance - data loss
 
 - Each block is replicated to multiple data nodes (2-3 is typical)
 - Name node tracks which data nodes store which blocks
-- If a replica of block `b` is lost (e.g., node failure) then the name node instructs a data node storing  `b` to send the block to another data node to achieve the desired number of replicas
+- If a replica of block `b` is lost (e.g., node failure) then the name node instructs a data node storing  `b` to send the block to another data node to restore the desired number of replicas
   </textarea>
 </section>
+
+<section data-markdown>
+<textarea data-template>
+## Example - Restoring Replication Count
+
+- For this example assume that data node 3 has failed and we are using 2-way replication
+- blocks 2 and 3 have to be replicated once more to restore that there exist 2 replicas for each
+</textarea>
+</section>
+
+<section>
+{% graphviz %}
+digraph G {
+
+node[shape=rectangle,style="filled,rounded", fillcolor="lightcyan", color=black];
+rankdir="TB";
+newrank=true;
+
+   subgraph cluster_0 {
+        rank=same;
+		style="filled,rounded";
+        fillcolor=wheat1;
+		node [shape=rectangle,style="filled,rounded",fillcolor="darkolivegreen2",color=black];
+        f2[label="File2: B3"];
+        f1[label="File1: B1, B2"];
+        fontname="times-bold";
+		label = "Name Node";
+	}
+
+
+  subgraph cluster_3 {
+        rank=same;
+		style="filled,rounded";
+        fillcolor="firebrick1";
+		node [shape=rectangle,style="filled,rounded",fillcolor="darkolivegreen2",color=black];
+        b33[label="Block 3"];
+        b32[label="Block 2"];
+        fontname="times-bold";
+		label = "Data Node 3 (Failed)";
+	}
+
+   subgraph cluster_1 {
+        rank=same;
+		style="filled,rounded";
+        fillcolor=wheat1;
+		node [shape=rectangle,style="filled,rounded",fillcolor="darkolivegreen2",color=black];
+        b12[label="Block 2"];
+        b11[label="Block 1"];
+        fontname="times-bold";
+		label = "Data Node 1";
+	}
+
+  subgraph cluster_2 {
+        rank=same;
+		style="filled,rounded";
+        fillcolor=wheat1;
+		node [shape=rectangle,style="filled,rounded",fillcolor="darkolivegreen2",color=black];
+        b23[label="Block 3"];
+        b21[label="Block 1"];
+        fontname="times-bold";
+		label = "Data Node 2";
+	}
+
+
+    f2 -> b12 [style="invis"];
+    f2 -> b21  [style="invis"];
+    f2->b32 [style="invis"];
+    b12-> b21 [ label="transfer"];
+    b23-> b11 [ label="transfer"];
+
+}
+{% endgraphviz %}
+</section>
+
+
 
 <section data-markdown>
   <textarea data-template>
@@ -271,6 +406,25 @@ title: Storage - Distributed File Systems
   </textarea>
 </section>
 
+<section>
+{% graphviz %}
+digraph G {
+
+node [shape=rectangle,style="filled,rounded",fillcolor="darkolivegreen2",color=black,fontname="times-bold"];
+rankdir="LR";
+newrank=true;
+
+nn [label="Name Node"];
+d1 [label="Data Node 1"];
+d2 [label="Data Node 2"];
+d3 [label="Data Node 3"];
+
+d1 -> nn [label="Heartbeat"];
+d2 -> nn [label="Heartbeat"];
+d3 -> nn [label="Heartbeat"];
+}
+{% endgraphviz %}
+</section>
 
 <section data-markdown>
   <textarea data-template>
@@ -280,6 +434,54 @@ title: Storage - Distributed File Systems
 - Replicas of blocks are stored on separate racks to avoid loss of availability when a switch connecting the nodes in a rack to the cluster is down
   </textarea>
 </section>
+
+<section>
+{% graphviz %}
+digraph G {
+
+node [shape=rectangle,style="filled,rounded",fillcolor="darkolivegreen2",color=black,fontname="times-bold"];
+rankdir="TB";
+
+i[label="interconnect"];
+
+
+node[shape=rectangle,style="filled,rounded", fillcolor="lightcyan", color=black];
+
+rank=same;
+
+   subgraph cluster_0 {
+       rankdir="LR";
+		style="filled,rounded";
+        fillcolor=wheat1;
+        s1[label="Switch"];
+        n1[label="Node 1",fillcolor="darkolivegreen2"];
+        n2[label="Node 2",fillcolor="darkolivegreen2"];
+        s1->n1;
+        s1->n2;
+        fontname="times-bold";
+		label = "Rack 1";
+	}
+
+
+   subgraph cluster_1 {
+       rankdir="LR";
+		style="filled,rounded";
+        fillcolor=wheat1;
+        s2[label="Switch"];
+        n3[label="Node 3",fillcolor="darkolivegreen2"];
+        n4[label="Node 4",fillcolor="darkolivegreen2"];
+        s2->n3;
+        s2->n4;
+        fontname="times-bold";
+		label = "Rack 2";
+	}
+
+    i->s1;
+    i->s2;
+}
+{% endgraphviz %}
+</section>
+
 
 <section data-markdown>
   <textarea data-template>
@@ -305,6 +507,63 @@ title: Storage - Distributed File Systems
   </textarea>
 </section>
 
+<section>
+{% graphviz %}
+digraph G {
+
+node[shape=rectangle,style="filled,rounded", fillcolor="lightcyan", color=black];
+rankdir="TB";
+newrank=true;
+
+   subgraph cluster_1 {
+        rank=same;
+		style="filled,rounded";
+        fillcolor=wheat1;
+		node [shape=rectangle,style="filled,rounded",fillcolor="darkolivegreen2",color=black];
+        b12[label="Block 2"];
+        b11[label="Block 1"];
+        fontname="times-bold";
+		label = "Data Node 1";
+	}
+
+   subgraph cluster_0 {
+        rank=same;
+		style="filled,rounded";
+        fillcolor=wheat1;
+		node [shape=rectangle,style="filled,rounded",fillcolor="darkolivegreen2",color=black];
+        f2[label="File2: B3"];
+        f1[label="File1: B1, B2"];
+        fontname="times-bold";
+		label = "Name Node";
+	}
+
+
+  subgraph cluster_2 {
+        rank=same;
+		style="filled,rounded";
+        fillcolor=wheat1;
+		node [shape=rectangle,style="filled,rounded",fillcolor="darkolivegreen2",color=black];
+        b23[label="Block 3"];
+        b21[label="Block 1"];
+        fontname="times-bold";
+		label = "Data Node 2";
+	}
+
+
+    client[label="Client",fontname="times-bold"];
+
+
+    client -> f1;
+    f1->client [label="metadata"];
+    client->b12 [label="read"];
+    client->b21 [label="read"];
+    b11->f1[style="invis"];
+
+}
+{% endgraphviz %}
+</section>
+
+
 <section data-markdown>
 <textarea data-template>
 ## Writing & Consistency
@@ -326,6 +585,20 @@ title: Storage - Distributed File Systems
   - from first data node to second data node
   - ...
 </textarea>
+</section>
+
+<section>
+<div class="scrollable-slide">
+{% seqdiag size="50x300" %}
+seqdiag {
+Client => "Data Node 1" => "Data Node 2" [label = "setup", return =""];
+Client => "Data Node 1" => "Data Node 2" [label = "block 1", return =""];
+Client => "Data Node 1" => "Data Node 2" [label = "...", return =""];
+Client => "Data Node 1" => "Data Node 2" [label = "block n", return =""];
+Client => "Data Node 1" => "Data Node 2" [label = "close", return =""];
+}
+{% endseqdiag %}
+</div>
 </section>
 
 <section data-markdown>

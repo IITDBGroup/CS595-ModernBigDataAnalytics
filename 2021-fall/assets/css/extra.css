@@ -91,3 +91,12 @@ p.date {
     background-color: black;
     text-align: left;
 }
+
+.graphviz {
+    height: 100%;
+}
+
+.scrollable-slide {
+    height: 800px;
+    overflow-y: auto !important;
+}
