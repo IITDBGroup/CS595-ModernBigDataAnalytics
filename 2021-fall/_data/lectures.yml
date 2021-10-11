@@ -12,7 +12,7 @@
 - title: "Distributed Batch Processing"
   description: "We will learn about DISC (data-intensive scalable computing) systems which automatically distribute the processing of complex tasks to a cluster of nodes."
   category: disc
-  slides: [ disc, map_reduce, spark ]
+  slides: [ disc_overview, map_reduce, spark, distributed_op_implementations ]
   numdates: 6
 
 - title: "High-level Dataflow & Query Languages"
