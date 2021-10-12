@@ -446,6 +446,12 @@ RETURN p:name
 - It's syntax bears some similarity with SQL
 - Queries consist of graph patterns that are matched against an RDF graph
 ```sparql
+SELECT ?name
+WHERE
+{
+    ?p hasName ?name .
+    ?p is-a Person .
+}
 ```
 </textarea>
 </section>
@@ -464,16 +470,46 @@ RETURN p:name
 
 - Systems differ widely in what performance characteristics, operations, and what guarantees they provide
 - Technically, NoSQL Databases combine techniques from the systems, distributed computing, and database communities
-- We will discuss several foundational techniques and algorithms in the following:
-  - **LSM-trees**: An LSM-tree is a write-optimized index structure that is applied by many key-value and wide column store systems. Because writes to disk are sequential in LSM-trees, these data structures work well with distributed file systems like HDFS that only allow appending writes.
-  - **Distributed Hash Tables (DHT)**: A distributed hash table is a distributed, fault tolerant and load-balancing implementation of a map data structure
-    - **Consistent Hashing**: the technique used by many DHTs to distribute data without requiring complete reorganization when nodes leave or enter the system
-    - **Overlay Network**: an overlay network is a virtual network on top of a physical network. They are used by DHTs for routing requests
-  - **Eventual Consistency**: A weaker form of consistency applied by many key-value
-  - **Vector Clocks/Version Vectors**: A mechanism for reasoning about the causal ordering of events in a distributed system
+- We will discuss (have discussed) several foundational techniques and algorithms:
 </textarea>
 </section>
 
+<section data-markdown>
+<textarea data-template>
+## Foundational Techniques and Concepts
+
+- **Storage organization**:
+  - **Data placement**: horizontal (range and hash) and vertical partitioning
+  - **LSM-trees**: An LSM-tree is a write-optimized index structure that is applied by many key-value and wide column store systems. Because writes to disk are sequential in LSM-trees, these data structures work well with distributed file systems like HDFS that only allow appending writes.
+  - **Distributed Hash Tables (DHT)**: A distributed hash table is a distributed, fault tolerant and load-balancing implementation of a map data structure
+    - **Consistent Hashing**: the technique used by many DHTs to distribute data without requiring complete reorganization when nodes leave or enter the system
+    - **Overlay Networks**: an overlay network is a virtual network on top of a physical network. They are used by DHTs for routing requests
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Foundational Techniques and Concepts
+
+- **Fault tolerance**
+  - **Replication**: replicate data and/or computation to avoid single points of failure
+  - **Bulk-synchronous processing**: split computation into phases whose ends act as barriers for the computation
+  - **Lineage-based fault tolerance**: log how chunks of data are produced from other chunks of data and re-compute chunks on failures
+  - **Distributed snapshots**: snapshot state of operators and/or their outputs in a distributed data flow
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Foundational Techniques and Concepts
+
+- **Consistency and Distributed State Management**
+  - **Eventual Consistency**: A weaker form of consistency applied by many key-value
+  - **Vector Clocks/Version Vectors**: A mechanism for reasoning about the causal ordering of events in a distributed system
+  - **Consensus protocols**: Keeping state in-sync in a distributed system with *Paxos* of *Raft*
+  - **2PC**: the two phase commit protocol for distributed transaction processing
+</textarea>
+</section>
 
 
 
