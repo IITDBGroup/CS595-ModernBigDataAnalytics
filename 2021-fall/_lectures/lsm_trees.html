@@ -110,6 +110,7 @@ title: Storage - LSM-Trees
 </textarea>
 </section>
 
+
 <section data-markdown>
 <textarea data-template>
 ## LSM-tree Modification Operations
@@ -137,13 +138,32 @@ title: Storage - LSM-Trees
 
 <section data-markdown>
 <textarea data-template>
+## Merging components
+
+- To merge a component $C_i$ at level $i$ into the component $C_{i+1}$ at level $i+1$
+- We scan through both $C_i$ and $C_{i+1}$ sorted by keys and output a merged component $C_{new}$
+  - for keys that appear in both components we use the value from $C_{i}$ because it is guaranteed to be newer (see previous slide)
+- This is essentially the merge phase of an external merge sort!
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## LSM-tree Inserts
+- `Insert(k,v)`
+  - to insert `k:v`, insert it into the memtable
+  - how this works precisely depends on the type of index used as a memtable
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
 ## Insert / Update Example
 
-- Let's consider $T=2$ and $\mathcal{S} = 3$ (up to three entries in the memtable)
-
-- **L0** (**memtable**): $[(k_1,v_1), (k_2,v_2), (k_3,v_3)]$
-- **L1**: $[(k_1, v_1)]$
-- **L2**:
+- Let's consider $T=2$ and $\mathcal{S} = 2$ (up to two entries in the memtable)
+- In the next slide we are inserting a new key-value pair `k3:v9` causing the memtable to exceed its size limit (2) which results in :
+  - a new memtable being created
+  - the current memtable gets merged with the current component at level `L1` to form the new component at level `L1`
 </textarea>
 </section>
 
@@ -202,20 +222,122 @@ l1:0 -> l2:0 [style="invis"];
 </section>
 
 
+
 <section data-markdown>
 <textarea data-template>
-## Delete Example
+## Look-up Example
+
+- On the next slide we are searching for `k1`
+- The search starts at level `L0` and continues until either
+  - we have not found the key at the lowest level => the key is not in the index
+  - we have found the key => return the value
+- This always returns the latest version of the key
+</textarea>
+</section>
+
+<section>
+{% graphviz %}
+digraph G {
+
+node [shape="record",style="filled,rounded",fillcolor="wheat1",color=black,fontname="times-bold"];
+rankdir="TB";
+
+subgraph level0 {
+rank=same;
+s1 [shape="ellipse",label="1",fillcolor="white"];
+notl0 [label="have(k1)? no",fillcolor="coral1"];
+l0 [label="L0'|<1>k3:v9| "];
+}
+
+subgraph level1 {
+rank=same;
+s2 [shape="ellipse",label="2",fillcolor="white"];
+hasl1 [label="have(k1)? yes",fillcolor="darkolivegreen2"];
+l1 [label="<0>L1|k1:v7|k2:v8|k8:v6 | |"];
+}
+
+subgraph level2 {
+rank=same;
+l2 [label="<0>L2 | k1:v1 | k4:v2 | k5:v3 | k7:v4 | | | | "];
+}
+
+s1->s2 [style="invis"];
+l0:0 -> l1:0 [style="invis"];
+l1:0 -> l2:0 [style="invis"];
+notl0 -> hasl1 [style="invis"];
+
+}
+{% endgraphviz %}
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## LSM-Trees Deletion
+
+- deleting a key just from the memtable is not enough, because previous versions of the key may still exist at lower levels
+- **solution**: insert the key with a **tombstone**, a special value that indicates that the key has been deleted
+- changes to look-up: when finding a tombstone the search finishes and
+- changes to merging: merging a tombstone for key $k$ from $Ci$ with a key from $C_{i+1}$ results in $k$ to be excluded from the merged component
 </textarea>
 </section>
 
 <section data-markdown>
 <textarea data-template>
-## Requirements for Components
+## Delete Example
 
-- components that live in memory should
-- components that live on disk need to support
-  -
-  -
+- assume $S = 3$ (up to three entries in the memtable)
+- delete key `k3` (exists in `L1`) and `k2` (not in `L0`)
+- instead of deleting `k3` and doing nothing about `k2` (which already does not exist in the memtable) we have to insert both with a tombstone
+</textarea>
+</section>
+
+<section>
+{% graphviz %}
+digraph G {
+
+node [shape="record",style="filled,rounded",fillcolor="wheat1",color=black,fontname="times-bold"];
+rankdir="TB";
+
+subgraph level0 {
+rank=same;
+l0b [label="L0 (before)'|<1>k3:v9| "];
+l0a [label="L0 (after)'|<1>k3:Tombstone|k2:Tombstone ", fillcolor="darkolivegreen2"];
+}
+
+subgraph level1 {
+rank=same;
+l1 [label="<0>L1|k1:v7|k2:v8|k8:v6 | |"];
+}
+
+subgraph level2 {
+rank=same;
+l2 [label="<0>L2 | k1:v1 | k4:v2 | k5:v3 | k7:v4 | | | | "];
+}
+
+l0b:0 -> l1:0 [style="invis"];
+l1:0 -> l2:0 [style="invis"];
+
+}
+{% endgraphviz %}
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Requirements for Indexes for Components
+
+- in principle any index structures for range-based access can be used to implement components of LSM-tree
+- the memtable and disk components have different access patterns
+  - the memtable has mostly point look-ups and in-place updates and once in a while sorted access to all its entries (during merge)
+  - the disk-resident components only require fast look-up and sorted access to all entries during merge
+- one advantage of LSM is that we can choose different data structures for the memtable and disk-based components
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Index Structures for Memtables
+
+- Since memtables only live in memory, we are not restricted to use index structures that can operate efficiently from secondary storage
 </textarea>
 </section>
 
