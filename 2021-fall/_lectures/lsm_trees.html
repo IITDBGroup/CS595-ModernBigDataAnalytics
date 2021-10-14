@@ -338,12 +338,22 @@ l1:0 -> l2:0 [style="invis"];
 ## Index Structures for Memtables
 
 - Since memtables only live in memory, we are not restricted to use index structures that can operate efficiently from secondary storage
+  - e.g., skip-lists
+- For disk components we can exploit the immutability of the data
+  - storing the data sorted on key with some additional lightweight index is feasible
+  - common choices are SSTables (introduced next) and B-trees
 </textarea>
 </section>
 
 <section data-markdown>
 <textarea data-template>
 ## SSTables
+
+- An SSTable stores a set of key value pairs sorted on disk
+  - key-value pairs are stored on blocks that are of a size that is a multiple of the disk block size
+- In addition the SSTable contains a lightweight index which records which blocks store which range of keys
+  - this is used to speed up look-ups (both point and range)
+  - this index is small enough to be kept in memory
 </textarea>
 </section>
 
