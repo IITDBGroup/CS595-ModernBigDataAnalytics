@@ -53,9 +53,8 @@ How to write a scientific article:
 | Patel     | Cassandra: a decentralized structured storage system                                                    | 10/14/21          |
 | Campbell  | Incremental, Iterative Data Processing With Timely Dataflow                                             | 10/14/21          |
 | Cornelius | Tracing nested data with structural provenance for big data analytics                                   | 10/19/21          |
-| Mohammed  | Apache Calcite: A Foundational Framework for Optimized Query Processing Over Heterogeneous Data Sources | 10/19/21          |
 | Tang      | Kafka: A distributed messaging system for log processing                                                | 11/09/21          |
-
+| Mohammed  | Apache Calcite: A Foundational Framework for Optimized Query Processing Over Heterogeneous Data Sources | 11/11/21          |
 
 # List of Papers
 
