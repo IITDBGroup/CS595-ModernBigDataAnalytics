@@ -162,7 +162,7 @@ title: Storage - LSM-Trees
 
 - Let's consider $T=2$ and $\mathcal{S} = 2$ (up to two entries in the memtable)
 - In the next slide we are inserting a new key-value pair `k3:v9` causing the memtable (`L0`) to exceed its size limit (2) which triggers:
-  - creation of a new new memtable `L0'` 
+  - creation of a new new memtable `L0'`
   - the current memtable `L0` gets merged with the current component at level `L1` to form the new component at level `L1`
 </textarea>
 </section>
@@ -286,10 +286,68 @@ notl0 -> hasl1 [style="invis"];
 ## Range Queries
 
 - Given a range $[k\_1,k\_2]$ a range query returns all key-value pairs for keys $k \in [k\_1,k\_2]$
-- 
-
+- Recall that a key may exist at multiple levels $l\_{i\_1}$, ..., $l\_{i\_k}$
+  - we need to only return newest value ($l\_{i_1}$)
+- The brute force solution would be to scan the components one-by-one and then  merge the resulting sequences of key value pairs (as in merging components)
+- Possible optimizations:
+  - we can scan all components in parallel
+  - we can use heaps for merging the streams produced by each component scan
 </textarea>
 </section>
+
+<section>
+{% graphviz %}
+digraph G {
+
+node [shape="rectangle",style="filled,rounded",fillcolor="wheat1",color=black,fontname="times-bold"];
+rankdir="TB";
+
+subgraph query {
+q [label="range(k2,k6)",fillcolor="darkolivegreen2"];
+}
+
+subgraph level0 {
+rank=same;
+l0 [label="L0: k3:v9"];
+r0 [label="k3:v9",fillcolor="darkolivegreen2"];
+l0 ->r0 [label="result"];
+}
+
+subgraph level1 {
+rank=same;
+l1 [label="L1: k1:v7,k2:v8,k5:v6"];
+r1 [label="k2:v8,k5:v6",fillcolor="darkolivegreen2"];
+qr [label="final result: k2:v8,k3:v9,k4:v2,k5:v6",fillcolor="darkolivegreen2"]
+l1 ->r1 [label="result"];
+
+}
+
+subgraph level2 {
+rank=same;
+l2 [label="L2: k1:v1,k4:v2,k5:v3,k7:v4"];
+r2 [label="k4:v2,k5:v3",fillcolor="darkolivegreen2"];
+l2 ->r2 [label="result"];
+}
+
+q->l0;
+q->l1;
+q->l2;
+l0->l1 [weight=100,style="invis"];
+l1->l2 [weight=100,style="invis"];
+
+r0->r1 [weight=100,style="invis"];
+r1->r2[weight=100,style="invis"];
+
+
+r0->qr [label="merge"];
+r1->qr [label="merge"];
+r2->qr [label="merge"];
+
+}
+{% endgraphviz %}
+</section>
+
+
 
 <section data-markdown>
 <textarea data-template>
@@ -301,6 +359,8 @@ notl0 -> hasl1 [style="invis"];
 - changes to merging: merging a tombstone for key $k$ from $C\_i$ with a key from $C\_{i+1}$ results in $k$ to be excluded from the merged component
 </textarea>
 </section>
+
+
 
 <section data-markdown>
 <textarea data-template>
@@ -321,8 +381,8 @@ rankdir="TB";
 
 subgraph level0 {
 rank=same;
-l0b [label="L0 (before)'|<1>k3:v9| "];
-l0a [label="L0 (after)'|<1>k3:Tombstone|k2:Tombstone ", fillcolor="darkolivegreen2"];
+l0b [label="L0 (before)|<1>k3:v9| "];
+l0a [label="L0 (after)|<1>k3:Tombstone|k2:Tombstone ", fillcolor="darkolivegreen2"];
 }
 
 subgraph level1 {
@@ -335,8 +395,8 @@ rank=same;
 l2 [label="<0>L2 | k1:v1 | k4:v2 | k5:v3 | k7:v4 | | | | "];
 }
 
-l0b:0 -> l1:0 [style="invis"];
-l1:0 -> l2:0 [style="invis"];
+l0b:0 -> l1:0 [weight=100,style="invis"];
+l1:0 -> l2:0 [weight=100,style="invis"];
 
 }
 {% endgraphviz %}
@@ -346,11 +406,11 @@ l1:0 -> l2:0 [style="invis"];
 <textarea data-template>
 ## Requirements for Indexes for Components
 
-- in principle any index structures for range-based access can be used to implement components of LSM-tree
-- the memtable and disk components have different access patterns
-  - the memtable has mostly point look-ups and in-place updates and once in a while sorted access to all its entries (during merge)
-  - the disk-resident components only require fast look-up and sorted access to all entries during merge
-- one advantage of LSM is that we can choose different data structures for the memtable and disk-based components
+- In principle any index structures for range-based access can be used to implement components of LSM-tree
+- Memtable and disk components have different access patterns
+  - **Memtable**: mostly point queries and in-place updates and once in a while sorted access to all its entries (during merge)
+  - **Disk-resident components** only require fast queries and sorted access to all entries during merge
+- Advantage of LSM: we can choose different data structures for the memtable and disk-based components
 </textarea>
 </section>
 
@@ -359,10 +419,10 @@ l1:0 -> l2:0 [style="invis"];
 ## Index Structures for Memtables
 
 - Since memtables only live in memory, we are not restricted to use index structures that can operate efficiently from secondary storage
-  - e.g., skip-lists
+  - e.g., [skip-lists](https://en.wikipedia.org/wiki/Skip_list)
 - For disk components we can exploit the immutability of the data
   - storing the data sorted on key with some additional lightweight index is feasible
-  - common choices are SSTables (introduced next) and B-trees
+  - common choices are **SSTables** (introduced next) and **B-trees**
 </textarea>
 </section>
 
@@ -370,10 +430,10 @@ l1:0 -> l2:0 [style="invis"];
 <textarea data-template>
 ## SSTables
 
-- An SSTable stores a set of key value pairs sorted on disk
+- An **SSTable** is a file that stores a set of key value pairs sorted on disk
   - key-value pairs are stored on blocks that are of a size that is a multiple of the disk block size
-- In addition the SSTable contains a lightweight index which records which blocks store which range of keys
-  - this is used to speed up look-ups (both point and range)
+- In addition the SSTable contains a lightweight index (stored at the end) which records which blocks store which range of keys
+  - this is used to speed up queries (both point and range)
   - this index is small enough to be kept in memory
 </textarea>
 </section>
@@ -390,7 +450,7 @@ l1:0 -> l2:0 [style="invis"];
 <textarea data-template>
 ## Bloom Filters
 
-- A bloom filter is an over-approximation of a set
+- A [bloom filter](https://en.wikipedia.org/wiki/Bloom_filter) is an over-approximation of a set
 - It supports two operations:
   - `insert(e)`: inserts the element $e$ into the bloom filter
   - `contains(e)`: determines whether element $e$ is in the bloom filter
@@ -477,7 +537,7 @@ e2 -> bloom:2 [label="h2=2"];
 ## Leveled vs. Tiered Design
 
 - The design we have discussed so far is called level strategy / design
-- An alternative is the so-called
+- An alternative is the so-called **tiered design** which allows for multiple components at each level
 </textarea>
 </section>
 

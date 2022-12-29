@@ -22,7 +22,7 @@
   numdates: 5
 
 - title: "Distributed Transaction Processing, Consensus, and Consistency"
-  slides: [ oltp ]
+  slides: [ 2pc ]
   description: "We will learn about scalable distributed approaches for transaction processing and consistency including so called NewSQL systems."
   category: cc
   numdates: 6

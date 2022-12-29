@@ -2,7 +2,6 @@
 
 * Jekyll
 * Setting up a new semester
-**
 ** dates in =./_data/dates.yml=
 #+name: create dates
 #+header: :engine postgres

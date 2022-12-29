@@ -16,9 +16,23 @@ In summary, the timeline for the project is:
 
 - Select a project: **{{ site.data.course.due.project_selection }}**
 - Meet to discuss project design: **{{ site.data.course.due.project_design }}**
-- Finish project implementation: **{{ site.data.course.due.project_presentation }}**
+- Finish project implementation: **{{ site.data.course.due.project_implementation }}**
 
 Note that both individual projects as well as group projects are possible. However, the expectations for a group project will be set higher.
+
+## Project Presentations
+
+All presentations will be done in a block seminar **{{ site.data.course.due.project_presentation }}**. Presentations will be 10 minutes long followed by a 5 minutes for discussion.
+
+| Group                | Timeslot    | Project                                                                                         |
+|----------------------|-------------|-------------------------------------------------------------------------------------------------|
+| Patel                | 12:00-12:15 | Updating Data Frames in Spark                                                                   |
+| Rizvi                | 12:15-12:30 | Datalog over Spark Data Frames                                                                  |
+| Campbell + Tang      | 12:30-12:45 | Implementing Provenance-based Data Skipping on Spark                                            |
+| Xie                  | 12:45-1:00  | Secure Joins over Encrypted Databases                                                                                                |
+| Waghela + Sharma     | 1:15-1:30   | Implement Optimization Rules for Uncertainty-Annotated Management in Spark's Catalyst Optimizer |
+| Singh                | 1:30-1:45   | Implement Optimization Rules for Uncertainty-Annotated Management in Spark's Catalyst Optimizer |
+| Cornelius + Mohammed | 1:45-2:00   | Datalog over Spark Data Frames                                                                  |
 
 
 ## Example Project Ideas
