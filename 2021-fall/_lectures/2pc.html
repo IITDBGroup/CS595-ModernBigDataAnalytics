@@ -1,0 +1,146 @@
+---
+shortname: 2pc
+title: Distributed Transaction Processing, Consensus, and Consistency - Two-Phase Commit
+---
+
+<section data-markdown data-background="{{ "/assets/images/dbgrouplogo.png" | prepend: site.baseurl }}" data-background-size="250px" data-background-position="right 5% bottom 15%">
+	<textarea data-template>
+# {{ site.data.course.title }} - {{ page.title }}
+
+**Lecturer**: [Boris Glavic]({{ site.data.instructor.home }})
+
+**Semester**: {{ site.data.course.semester }} {{ site.data.course.year }}
+
+	</textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+# Two-Phase Commit (2PC)
+  </textarea>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+## Motivation - Distributed Transaction Processing
+
+- Recall that databases guarantee that the ACID properties for transactions are maintained
+- **Atomicity**: either all or none of the operations of a transaction are executed
+- **Consistency**: if the database is initially in a consistent state, then it is consistent after the execution of every transaction
+- **Isolation**: transactions running concurrently behave as if they were running sequentially
+- **Durability**: changes made by committed transactions are never lost
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Motivation - Distributed Transaction Processing
+
+- Textbook logging & recovery mechanisms ([Aries](https://en.wikipedia.org/wiki/Algorithms_for_Recovery_and_Isolation_Exploiting_Semantics)) can be employed to ensure atomicity on a single node database system
+- How to ensure atomicity in a distributed setting?
+  - Need nodes to agree on whether to abort of commit a transaction (under failures)
+  - => We need a consensus protocol for atomicity!
+  - We need an **atomic commit protocol (ACP)**
+  </textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## States of nodes
+
+- Wrt. a single transaction, nodes are in either of one states:
+  - **working**: still running the transaction
+  - **prepared**: finished the transaction and prepared to commit
+  - **committed**: transaction is committed
+  - **aborted**: transaction is aborted
+- Valid transitions between states are shown on the next slide
+</textarea>
+</section>
+
+<section>
+{% graphviz %}
+digraph G {
+
+node [style="filled,rounded",fillcolor="darkolivegreen2",color=black,fontname="times-bold"];
+rankdir="TB";
+
+working -> prepared;
+prepared -> committed;
+prepared -> aborted;
+working -> aborted;
+}
+{% endgraphviz %}
+</section>
+
+
+<section data-markdown>
+<textarea data-template>
+## Two Phase Commit (2PC)
+
+- An atomic commit protocol
+- Uses a **single coordinator** (different transactions may use different coordinators)
+- All other nodes in the cluster (involved in the transaction) are **participants**
+- Consists of two phases:
+  - **Voting phase**:
+    - Coordinator informs participants to prepare the commit of the transaction
+    - Participants inform the coordinator of their vote (commit or abort).
+    - Once the coordinator has received votes from all participants it makes
+  - **Decision phase**:
+    - Coordinator informs participants about the decision (commit if all participants voted commit, otherwise abort)
+    - Participants acknowledge the receipt of the decision to the coordinator
+    - Once the Coordinator has received acknowledgments from all participants the transaction is aborted / committed
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Dealing with Failures
+
+- **All nodes write decisions to a stable storage (WAL) before sending their decision**
+  - Participants write their commit decision to WAL before sending it to coordinator
+  - Coordinator writes the decision for the transaction to WAL before sending it to participants
+  - Participants write the commit decision they receive from the coordinator to WAL
+  - Coordinate writes an end record after receiving acknowledgments from all participants
+</textarea>
+</section>
+
+<section data-markdown>
+<textarea data-template>
+## Failure Detection and Recovery
+
+- Failures are detected through **time-outs**
+</textarea>
+</section>
+
+
+
+<section>
+<div class="scrollable-slide">
+{% seqdiag size="50x300" %}
+seqdiag {
+
+default_note_color = lightblue;
+
+=== Voting Phase ===
+
+Coordinator -> "Participant 1" [label = "prepare", note="Force write decision"];
+Coordinator -> "Participant 2" [label = "prepare", note="Force write decision"];
+Coordinator <- "Participant 1" [label = "prepared"];
+Coordinator <- "Participant 2" [label = "prepared", leftnote="Force write decision record"];
+
+=== Decision Phase ===
+
+Coordinator -> "Participant 1" [label = "commit", note="Force write commit record"];
+Coordinator -> "Participant 2" [label = "commit", note="Force write commit record"];
+Coordinator <- "Participant 1" [label = "committed"];
+Coordinator <- "Participant 2" [label = "committed", leftnote="Non-forced write end record"];
+
+}
+{% endseqdiag %}
+</div>
+</section>
+
+<!-- Local Variables: -->
+<!-- mode: markdown -->
+<!-- End: -->
