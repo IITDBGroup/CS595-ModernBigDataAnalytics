@@ -9,9 +9,9 @@ due:
   paper_selection: 09/05
   paper_report: 11/15
   project_selection: 09/12
-  project_design: 04/15
-  project_implementation: 05/01
-  project_presentation: 12/01
+  project_design: 11/15
+  project_implementation: 12/01
+  project_presentation: "12/03 12:00 pm - 1:00 pm"
 piazza: "https://piazza.com/iit/fall2021/cs595/home"
 workload:
   - name: "Project"
